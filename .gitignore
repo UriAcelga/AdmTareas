@@ -125,5 +125,9 @@ nb-configuration.xml
 /results/
 /phpunit*.xml
 
-#db
+#config
 app/Config/Database.php
+app/Config/App.php
+app/Config/Email.php
+app/Config/Cache.php
+app/Config/Session.php
