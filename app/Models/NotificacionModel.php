@@ -24,4 +24,14 @@ class NotificacionModel extends Model {
     protected $skipValidation = false;
     protected $cleanValidationRules = true;
 
+
+    public function list_by_email($email_usuario) {
+        return $this->where('email_usuario', $email_usuario)->orderBy('created_at', 'DESC');
+    }
+
+    public function usuario_tiene_notificaciones_no_leidas($email_usuario) {
+        return $this->where('email_usuario', $email_usuario)
+                    ->where('leido', 0)
+                    ->countAllResults() > 0;
+    }
 }

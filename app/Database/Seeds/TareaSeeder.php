@@ -5,22 +5,22 @@ namespace App\Database\Seeds;
 use CodeIgniter\Database\Seeder;
 use Faker\Factory;
 
-class SubtareaSeeder extends Seeder
+class TareaSeeder extends Seeder
 {
     public function run()
     {
         $faker = Factory::create('es_ES');
-        for ($i = 0; $i < 100; $i++) {
-            $venc = $faker->dateTimeBetween('+5 days', '+30 days')->format('Y-m-d');
+        for ($i = 0; $i < 30; $i++) {
+            $venc = $faker->dateTimeBetween('+31 days', '+60 days')->format('Y-m-d');
             $data = [
-                'id_tarea' => $faker->numberBetween(1, 30),
+                'idDueño' => $faker->numberBetween(1,15),
                 'asunto' => $faker->sentence(3),
+                'descripcion' => $faker->sentence(14, true),
                 'fecha_vencimiento' => $venc,
-                'fecha_recordatorio' => $faker->boolean(50) ? $faker->dateTimeBetween('now', $venc)->format('Y-m-d') : null,
+                'fecha_recordatorio' => $faker->dateTimeBetween('now', $venc)->format('Y-m-d'),
                 'color' => $faker->randomElement(['yellow', 'red', 'pink', 'indigo', 'purple', 'green']),
                 'prioridad' => $faker->randomElement(['Baja', 'Media', 'Alta']),
                 'usuario' => $faker->name(),
-                'fecha' => $faker->date(),
             ];
             $this->db->table('subtarea')->insert($data);
         }

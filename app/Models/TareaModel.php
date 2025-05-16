@@ -52,4 +52,18 @@ class TareaModel extends Model
     ];
     protected $skipValidation = false;
     protected $cleanValidationRules = true;
+    protected $colores = [
+            'yellow' => 'yellow-500',
+            'red' => 'red-500',
+            'pink' => 'pink-400',
+            'indigo' => 'indigo-600',
+            'purple' => 'purple-500',
+            'green' => 'green-500'
+        ];
+
+    public function get_clase_color($id) {
+        $row = $this->select('color')->find($id);
+        $color = $row ? $row['color'] : null;
+        return $color ? $this->colores[$color] : null;
+    }
 }

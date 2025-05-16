@@ -52,4 +52,37 @@ class SubtareaModel extends Model
     ];
     protected $skipValidation = false;
     protected $cleanValidationRules = true;
+    protected $colores = [
+            'yellow' => 'yellow-500',
+            'red' => 'red-500',
+            'pink' => 'pink-400',
+            'indigo' => 'indigo-600',
+            'purple' => 'purple-500',
+            'green' => 'green-500'
+        ];
+
+    public function get_clase_color($id) {
+        $row = $this->select('color')->find($id);
+        $color = $row ? $row['color'] : null;
+        return $color ? $this->colores[$color] : null;
+    }
+
+    public function get_fecha_vencimiento_string($id) {
+        return $this->select("DATE_FORMAT(fecha_vencimiento, '%m/%d') as fecha_vencimiento_string")
+                ->where('id', $id)
+                ->first()['fecha_vencimiento_string'] ?? null;
+    }
+
+    public function recordatorio_debe_notificarse($id) {
+        $subtarea = $this->find($id);
+        if (!$subtarea) {
+            return false;
+        }
+        $now = date('Y-m-d H:i:s');
+        return (
+            !empty($subtarea['fecha_recordatorio']) &&
+            $subtarea['fecha_recordatorio'] <= $now &&
+            $subtarea['estado'] === 'En proceso'
+        );
+    }
 }
