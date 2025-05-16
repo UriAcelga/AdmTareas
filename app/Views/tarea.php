@@ -1,6 +1,12 @@
+<?= $this->extend('layouts/default') ?>
+<?= $this->section('title') ?> Mis Tareas <?= $this->endSection() ?>
+<?= $this->section('nav') ?>
+    <?= view_cell('NavCell::mostrar', ['title' => 'Administrador de Tareas']) ?>
+<?= $this->endSection() ?>
+<?= $this->section('content') ?>
 <div class="bg-gradient-to-l from-gray-600 to-<?= esc($color) ?> p-4 rounded-md shadow-md mb-12">
     <div class="flex justify-between items-center" onclick="toggleVisibility(this)">
-        <h2 class="text-white font-bold text-lg mb-4"><?= esc($nombre) ?></h2>
+        <h2 class="text-white font-bold text-lg mb-4"><?= esc($asunto) ?></h2>
         <img src="<?= base_url('icons/expand.svg') ?>" alt="Expandir tarea"class="w-8 h-8 mb-4">
         <script>
             function toggleVisibility(img) {
@@ -53,3 +59,4 @@
         </div>
     </div>
 </div>
+<?= $this->endSection() ?>

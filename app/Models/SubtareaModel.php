@@ -61,10 +61,14 @@ class SubtareaModel extends Model
             'green' => 'green-500'
         ];
 
-    public function get_clase_color($id) {
+    public function get_clase_color_by_id($id) {
         $row = $this->select('color')->find($id);
         $color = $row ? $row['color'] : null;
         return $color ? $this->colores[$color] : null;
+    }
+
+    public function get_clase_color($color) {
+        return $this->colores[$color] ?? $this->colores['red'];
     }
 
     public function get_fecha_vencimiento_string($id) {
@@ -84,5 +88,13 @@ class SubtareaModel extends Model
             $subtarea['fecha_recordatorio'] <= $now &&
             $subtarea['estado'] === 'En proceso'
         );
+    }
+
+    public function get_subtareas_por_tarea_id($id) {
+        $tareas = $this->where('idTarea', $id)->findAll();
+        foreach($tareas as &$tarea) {
+            $tarea['color'] = $this->get_clase_color($tarea['color']);
+        }
+        return $tareas;
     }
 }

@@ -96,4 +96,10 @@ class TareaModel extends Model
         unset($tarea);
         return $tareas;
     }
+
+    public function buscar_por_id($id) {
+        $tarea = $this->where('id', $id)->first();
+        $tarea['color'] = $this->colores[$tarea['color']];
+        return $tarea;
+    }
 }

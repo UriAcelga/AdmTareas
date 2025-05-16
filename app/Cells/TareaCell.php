@@ -7,6 +7,7 @@ class TareaCell
     public function mostrar(array $params = [])
     {
         $params = [
+            'id' => $params['id'] ?? '1',
             'asunto' => $params['asunto'] ?? 'Tarea',
             'color' => $params['color'] ?? 'red-500',
             'prioridad' => $params['prioridad'] ?? 'Baja',
