@@ -7,13 +7,14 @@ class TareaCell
     public function mostrar(array $params = [])
     {
         $params = [
-            'nombre' => $params['nombre'] ?? 'Tarea',
+            'asunto' => $params['asunto'] ?? 'Tarea',
             'color' => $params['color'] ?? 'red-500',
             'prioridad' => $params['prioridad'] ?? 'Baja',
             'usuario' => $params['usuario'] ?? 'Usuario',
-            'fecha' => $params['fecha'] ?? 'Fecha',
+            'fecha' => $params['fecha'] ?? '20/6',
+            'descripcion' => $params['descripcion'] ?? ""
         ];
 
-        return view('componentes/tarea', $params);
+        return view('componentes/tareaCard', $params);
     }
 }

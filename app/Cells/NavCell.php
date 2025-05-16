@@ -8,6 +8,7 @@ class NavCell
     {
         $data = [
             'title' => $params['title'] ?? 'Administrador de tareas',
+            'hayPendientes' => $params['hayPendientes'] ?? true,
         ];
         return view('componentes/nav', $data);
     }

@@ -66,4 +66,24 @@ class TareaModel extends Model
         $color = $row ? $row['color'] : null;
         return $color ? $this->colores[$color] : null;
     }
+
+    public function usuario_es_dueño($idTarea, $idUsuario) {
+        $tarea = $this->where('id', $idTarea)->findAll();
+        return $tarea['idDueño'] == $idUsuario;
+    }
+
+    public function get_dueño($id) {
+        return $this->where('id', $id)->select('idDueño')->findAll();
+    }
+
+    public function get_tareas_por_dueño($id) {
+        return $this->where('idDueño', $id)->orderBy('prioridad')->findAll();
+    }
+
+    public function get_tareas_por_colaborador($email) {
+        return $this->select('tarea.*')
+            ->join('colaboracion', 'colaboracion.idTarea = tarea.id')
+            ->where('colaboracion.email', $email)
+            ->findAll();
+    }
 }

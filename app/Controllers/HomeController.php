@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Controllers;
+use App\Models\TareaModel;
+use App\Models\UsuarioModel;
+
+class HomeController extends BaseController
+{
+    public function __construct() 
+    {
+        helper(['form', 'url', 'text']);
+    }
+
+    public function index(): string
+    {
+        $modeloTareas = new TareaModel();
+        $modeloUsuarios = new UsuarioModel();
+        $data = [
+            'tareasPropias' => $modeloTareas->get_tareas_por_dueño(session()->get('id_usuario')),
+            'tareasColaborando' => $modeloTareas->get_tareas_por_dueño(session()->get('email'))
+        ];
+        return view('home', $data);
+    }
+}

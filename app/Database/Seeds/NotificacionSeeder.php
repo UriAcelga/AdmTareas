@@ -11,7 +11,7 @@ class NotificacionSeeder extends Seeder
     public function run()
     {
         $faker = Factory::create('es_ES');
-        for($i = 0; $i < 10; $i++) {
+        for($i = 0; $i < 100; $i++) {
             $data = [
                 'asunto' => $faker->sentence(3),
                 'mensaje' => $faker->sentence(10),

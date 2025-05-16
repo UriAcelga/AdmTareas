@@ -27,4 +27,16 @@ class UsuarioModel extends Model
     ];
     protected $skipValidation = false;
     protected $cleanValidationRules = true;
+
+    public function find_por_email($email) {
+        return $this->where('email', $email)->findAll();
+    }
+
+    public function get_un_email() {
+        return $this->orderBy('RAND()')->select('email')->first();
+    }
+
+    public function get_email_by_id($id) {
+        return $this->where('id', $id)->select('email')->findAll();
+    }
 }
