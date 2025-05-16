@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 use App\Models\TareaModel;
-use App\Models\UsuarioModel;
 
 class HomeController extends BaseController
 {
@@ -14,11 +13,11 @@ class HomeController extends BaseController
     public function index(): string
     {
         $modeloTareas = new TareaModel();
-        $modeloUsuarios = new UsuarioModel();
         $data = [
             'tareasPropias' => $modeloTareas->get_tareas_por_dueño(session()->get('id_usuario')),
-            'tareasColaborando' => $modeloTareas->get_tareas_por_dueño(session()->get('email'))
+            'tareasColaborando' => $modeloTareas->get_tareas_por_colaborador(session()->get('email'))
         ];
+        var_dump($data['tareasColaborando']);
         return view('home', $data);
     }
 }

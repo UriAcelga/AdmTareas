@@ -37,6 +37,6 @@ class UsuarioModel extends Model
     }
 
     public function get_email_by_id($id) {
-        return $this->where('id', $id)->select('email')->findAll();
+        return $this->where('id', $id)->select('email')->first();
     }
 }

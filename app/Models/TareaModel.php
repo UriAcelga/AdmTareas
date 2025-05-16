@@ -62,9 +62,9 @@ class TareaModel extends Model
         ];
 
     public function get_clase_color($id) {
-        $row = $this->select('color')->find($id);
+        $row = $this->where('id', $id)->select('color')->first();
         $color = $row ? $row['color'] : null;
-        return $color ? $this->colores[$color] : null;
+        return ($color) ? $this->colores[$color] : null;
     }
 
     public function usuario_es_dueño($idTarea, $idUsuario) {
@@ -73,17 +73,27 @@ class TareaModel extends Model
     }
 
     public function get_dueño($id) {
-        return $this->where('id', $id)->select('idDueño')->findAll();
+        return $this->where('id', $id)->select('idDueño')->first();
     }
 
     public function get_tareas_por_dueño($id) {
-        return $this->where('idDueño', $id)->orderBy('prioridad')->findAll();
+        $tareas = $this->where('idDueño', $id)->orderBy('prioridad', 'DESC')->findAll();
+        foreach ($tareas as &$tarea) {
+            $tarea['color'] = $this->colores[$tarea['color']];
+        }
+        unset($tarea);
+        return $tareas;
     }
 
     public function get_tareas_por_colaborador($email) {
-        return $this->select('tarea.*')
+        $tareas = $this->select('tarea.*')
             ->join('colaboracion', 'colaboracion.idTarea = tarea.id')
-            ->where('colaboracion.email', $email)
+            ->where('colaboracion.emailColaborador', $email)
             ->findAll();
+        foreach ($tareas as &$tarea) {
+            $tarea['color'] = $this->colores[$tarea['color']];
+        }
+        unset($tarea);
+        return $tareas;
     }
 }

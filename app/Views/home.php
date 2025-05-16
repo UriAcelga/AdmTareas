@@ -19,38 +19,15 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-16">
+            <?php foreach($tareasPropias as $tarea): ?>
             <?= view_cell('TareaCell::mostrar', [
-            'nombre' => 'Tarea 1',
-            'color' => 'red-500',
-            'prioridad' => 'Normal'
+            'asunto' => $tarea['asunto'],
+            'color' => $tarea['color'],
+            'prioridad' => $tarea['prioridad'],
+            'fecha' =>  $tarea['fecha_vencimiento'],
+            'descripcion' =>  $tarea['descripcion']
             ]); ?>
-
-            <?= view_cell('TareaCell::mostrar', [
-            'nombre' => 'Tarea 1',
-            'color' => 'green-500',
-            'prioridad' => 'Alta'
-            ]) ?>
-
-            <?= view_cell('TareaCell::mostrar', [
-            'nombre' => 'Tarea 1',
-            'color' => 'indigo-500'
-            ]) ?>
-
-            <?= view_cell('TareaCell::mostrar', [
-            'nombre' => 'Tarea 1',
-            'color' => 'purple-600',
-            'prioridad' => 'Baja'
-            ]) ?>
-
-            <?= view_cell('TareaCell::mostrar', [
-            'nombre' => 'Tarea 1',
-            'color' => 'pink-400'
-            ]) ?>
-
-            <?= view_cell('TareaCell::mostrar', [
-            'nombre' => 'Tarea 1',
-            'color' => 'yellow-500'
-            ]) ?>
+            <?php endforeach; ?>
 
         </div>
 
@@ -69,35 +46,15 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <?php foreach($tareasColaborando as $tarea): ?>
             <?= view_cell('TareaCell::mostrar', [
-                'nombre' => 'Tarea 1',
-                'color' => 'red-500'
+            'asunto' => $tarea['asunto'],
+            'color' => $tarea['color'],
+            'prioridad' => $tarea['prioridad'],
+            'fecha' =>  $tarea['fecha_vencimiento'],
+            'descripcion' =>  $tarea['descripcion']
             ]); ?>
-
-            <?= view_cell('TareaCell::mostrar', [
-                'nombre' => 'Tarea 1',
-                'color' => 'green-500'
-            ]) ?>
-
-            <?= view_cell('TareaCell::mostrar', [
-                'nombre' => 'Tarea 1',
-                'color' => 'indigo-500'
-            ]) ?>
-
-            <?= view_cell('TareaCell::mostrar', [
-                'nombre' => 'Tarea 1',
-                'color' => 'purple-600'
-            ]) ?>
-
-            <?= view_cell('TareaCell::mostrar', [
-                'nombre' => 'Tarea 1',
-                'color' => 'pink-400'
-            ]) ?>
-
-            <?= view_cell('TareaCell::mostrar', [
-                'nombre' => 'Tarea 1',
-                'color' => 'yellow-500'
-            ]) ?>
+            <?php endforeach; ?>
 
         </div>
 <?= $this->endSection() ?>
