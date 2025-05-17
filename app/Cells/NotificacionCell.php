@@ -2,9 +2,9 @@
 
 namespace App\Cells;
 
-class SubtareaCell
+class NotificacionCell
 {
-    public function mostrar(array $params = [])
+    public function mostrarPush(array $params = [])
     {
         $params = [
             'asunto' => $params['asunto'] ?? 'Subtarea',
@@ -12,10 +12,15 @@ class SubtareaCell
             'prioridad' => $params['prioridad'] ?? 'Normal',
             'descripcion' => $params['descripcion'] ?? '',
             'usuario' => $params['usuario'] ?? '-',
-            'fecha' => $params['fecha_vencimiento'] ?? '2000/01/01',
+            'fecha' => $params['fecha_vencimiento'] ?? '2030/01/01',
             'color' => $params['color'] ?? 'red-500'
         ];
 
-        return view('componentes/subtarea', $params);
+        return view('componentes/notificacionPush', $params);
+    }
+
+    public function mostrarSideBar(array $params = [])
+    {
+        return view('componentes/notificacionSideBar', $params);
     }
 }

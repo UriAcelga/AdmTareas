@@ -13,7 +13,7 @@
 <body class="bg-gray-800 text-white">
     <h1 class="text-4xl font-extrabold text-center my-8 mb-12">Administrador de tareas</h1>
     <div class="flex items-center justify-center">
-        <div class="bg-gray-900 rounded-lg shadow-lg p-8 pb-20 w-full max-w-md">
+        <div class="bg-gray-900 rounded-lg shadow-lg p-8 pb-12 w-full max-w-md">
             <h2 class="text-2xl font-bold mb-6 text-center">Iniciar Sesión</h2>
             
             <?php if (session()->getFlashdata('error')): ?>
@@ -21,7 +21,7 @@
                     <?= session()->getFlashdata('error') ?>
                 </div>
             <?php endif; ?>
-            <form action="<?= base_url('auth') ?>" method="post" class="space-y-5">
+            <form action="<?= base_url('auth') ?>" method="post" class="space-y-5 mb-4">
                 <div>
                     <label for="email" class="block mb-2 text-sm font-medium">Correo electrónico:</label>
                     <input type="email" id="email" name="email" required class="w-full px-4 py-2 rounded-md bg-gray-800 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500" />
@@ -32,6 +32,9 @@
                 </div>
                 <button type="submit" class="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 rounded-md font-semibold">Entrar</button>
             </form>
+            <span class="block text-sm font-medium">No estás registrado? 
+                <a href="#" class="text-blue-500 hover:underline">Crear cuenta</a>
+            </span>
         </div>
     </div>
 </body>

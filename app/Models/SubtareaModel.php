@@ -21,7 +21,7 @@ class SubtareaModel extends Model
         'prioridad'=> 'required|in_list[Baja,Normal,Alta]',
         'fecha_vencimiento' => 'required|valid_date[Y-m-d H:i:s]|',
         'fecha_recordatorio' => 'valid_date[Y-m-d H:i:s]|',
-        'color' => 'regex_match[/^#[0-9A-Fa-f]{6}$/]',
+        'color' => 'required|max_length[7]',
     ];
     protected $validationMessages = [
         'asunto' => [
@@ -91,10 +91,22 @@ class SubtareaModel extends Model
     }
 
     public function get_subtareas_por_tarea_id($id) {
-        $tareas = $this->where('idTarea', $id)->findAll();
+        $tareas = $this->where('id_tarea', $id)->findAll();
         foreach($tareas as &$tarea) {
             $tarea['color'] = $this->get_clase_color($tarea['color']);
         }
         return $tareas;
+    }
+
+    public function completar_subtarea($id) {
+        if(! $this->update($id, ['estado' => 'Finalizada'])) {
+            $error = $this->db->error();
+            return log_message('error', 'Error al completar la tarea: ' . $error['message']);
+        }
+        return null;
+    }
+
+    public function get_estado_por_id($id) {
+        return $this->where('id', $id)->select('estado')->first();
     }
 }

@@ -6,6 +6,9 @@ use App\Models\UsuarioModel;
 class Auth extends BaseController
 {
     public function index() {
+        if (session()->get('loggeado')) {
+            return redirect()->to(base_url('home'));
+        }
         return view('login');
     }
 
