@@ -5,6 +5,7 @@
 <?= $this->endSection() ?>
 <?= $this->section('content') ?>
 <div class="flex items-center mb-4 relative">
+    <?= view_cell('ModalCell::crearTarea') ?>
     <div class="absolute left-1/2 transform -translate-x-1/2">
         <h2 class="text-xl font-semibold">Mis Tareas</h2>
     </div>
@@ -21,6 +22,7 @@
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-16">
     <?php foreach ($tareasPropias as $tarea): ?>
         <?= view_cell('TareaCell::mostrar', [
+            'id' => $tarea['id'],
             'asunto' => $tarea['asunto'],
             'color' => $tarea['color'],
             'prioridad' => $tarea['prioridad'],

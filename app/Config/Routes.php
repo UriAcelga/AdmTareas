@@ -15,3 +15,5 @@ $routes->get('tareas/(:num)', 'TareaController::index/$1');
 
 $routes->get('aceptarNotif', 'NotificacionController::aceptar');
 $routes->get('rechazarNotif', 'NotificacionController::rechazar');
+
+$routes->post('crearTarea', 'TareaController::crear');

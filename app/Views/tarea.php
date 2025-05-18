@@ -7,12 +7,15 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
-<div class="bg-gradient-to-l from-gray-600 to-<?= esc($tarea['color']) ?> p-4 rounded-md shadow-md mb-12">
-    <div class="flex justify-between items-center">
-        <h2 class="text-white font-bold text-lg mb-4"><?= esc($tarea['asunto']) ?></h2>
+<a href="<?= base_url('home') ?>" class="text-white font-bold text-xl hover:underline"><<< Volver a Principal</a>
+<div class="bg-gradient-to-l from-gray-600 to-<?= esc($tarea['color']) ?> p-4 rounded-md shadow-md my-8">
+    <div class="flex justify-between items-center mb-4">
+        <h2 class="text-white font-bold text-lg"><?= esc($tarea['asunto']) ?></h2>
+        <img src="<?= base_url('icons/edit.svg') ?>" alt="modificar tarea" class="w-6 h-6 mr-4">
+        <?= null // view_cell('ModalCell::modificarTarea') ?>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div class="bg-gray-900 rounded-md shadow-sm p-4">
+        <div class="bg-gray-900 rounded-md shadow-sm p-4 min-h-[250px]">
             <h4 class="font-semibold mb-2">Definido</h4>
             <?php foreach (esc($subtareas) as $subtarea):
                 if ($subtarea['estado'] == 'Definida'): ?>

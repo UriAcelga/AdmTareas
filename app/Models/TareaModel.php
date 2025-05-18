@@ -18,10 +18,9 @@ class TareaModel extends Model
         'asunto' => 'required|max_length[60]',
         'descripcion' => 'max_length[100]',
         'prioridad' => 'required|in_list[Baja,Normal,Alta]',
-        'estado' => 'required|in_list[Definida,En proceso,Completada,Archivada]',
-        'fecha_vencimiento' => 'required|valid_date[Y-m-d H:i:s]|',
-        'fecha_recordatorio' => 'valid_date[Y-m-d H:i:s]|',
-        'color' => 'regex_match[/^#[0-9A-Fa-f]{6}$/]',
+        'estado' => 'in_list[Definida,En proceso,Completada,Archivada]',
+        'fecha_vencimiento' => 'required|valid_date[Y-m-d]|',
+        'color' => 'in_list[red,purple,indigo,yellow,green,pink]',
     ];
     protected $validationMessages = [
         'asunto' => [
@@ -33,21 +32,17 @@ class TareaModel extends Model
         ],
         'prioridad' => [
             'required' => 'Prioridad es obligatoria.',
-            'in_list' => 'Prioridad debe ser una de las siguientes: Baja, Normal, Alta.',
+            'in_list' => 'Prioridad debe ser: Baja, Normal, Alta.',
         ],
         'estado' => [
-            'required' => 'Estado es obligatorio.',
-            'in_list' => 'El estado debe ser uno de los siguientes: Definida, En proceso, Completada, Archivada.',
+            'in_list' => 'El estado debe ser: Definida, En proceso, Completada, Archivada.',
         ],
         'fecha_vencimiento' => [
             'required' => 'La fecha de vencimiento es obligatoria.',
             'valid_date' => 'Formato inválido para la fecha de vencimiento',
         ],
-        'fecha_recordatorio' => [
-            'valid_date' => 'Formato inválido para la fecha de recordatorio',
-        ],
         'color' => [
-            'regex_match' => 'El color debe ser un código hexadecimal válido',
+            'in_list' => 'El color ingresado no es válido',
         ],
     ];
     protected $skipValidation = false;
@@ -101,5 +96,9 @@ class TareaModel extends Model
         $tarea = $this->where('id', $id)->first();
         $tarea['color'] = $this->colores[$tarea['color']];
         return $tarea;
+    }
+
+    public function nueva_tarea($data) {
+        return $this->insert($data);
     }
 }
