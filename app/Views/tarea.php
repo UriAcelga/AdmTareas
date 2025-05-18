@@ -29,7 +29,7 @@
                     <div class="space-y-2 mb-2">
                         <?= view_cell('SubtareaCell::mostrar', [
                             'id' => $subtarea['id'],
-                            'es_dueño' => esc($tarea['idDueño']) ? esc($tarea['idDueño']) == session()->get('id_usuario') : false,
+                            'es_dueño' => esc($es_dueño),
                             'asunto' => $subtarea['asunto'],
                             'descripcion' => $subtarea['descripcion'],
                             'estado' => $subtarea['estado'],
@@ -52,7 +52,7 @@
                     <div class="space-y-2 mb-2">
                         <?= view_cell('SubtareaCell::mostrar', [
                             'id' => $subtarea['id'],
-                            'es_dueño' => esc($tarea['idDueño']) ? esc($tarea['idDueño']) == session()->get('id_usuario') : false,
+                            'es_dueño' => esc($es_dueño),
                             'asunto' => $subtarea['asunto'],
                             'descripcion' => $subtarea['descripcion'],
                             'estado' => $subtarea['estado'],
@@ -75,7 +75,7 @@
                     <div class="space-y-2 mb-2">
                         <?= view_cell('SubtareaCell::mostrar', [
                             'id' => $subtarea['id'],
-                            'es_dueño' => esc($tarea['idDueño']) ? esc($tarea['idDueño']) == session()->get('id_usuario') : false,
+                            'es_dueño' => esc($es_dueño),
                             'asunto' => $subtarea['asunto'],
                             'descripcion' => $subtarea['descripcion'],
                             'estado' => $subtarea['estado'],
