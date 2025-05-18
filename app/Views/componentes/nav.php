@@ -2,7 +2,7 @@
     <h1 class="text-2xl font-bold"><?= esc($title) ?></h1>
     <div class="flex items-center space-x-4">
             <button type="button" class="hover:underline" onclick="window.location.href='<?= base_url('logout') ?>'">Cerrar sesión</button>
-        <button type="button" class="ml-12 flex items-center space-x-2" data-drawer-target="drawer-navigation" data-drawer-show="drawer-navigation" data-drawer-placement="right" aria-controls="drawer-navigation">
+        <button type="button" class="ml-12 flex items-center space-x-2" data-drawer-target="drawer-navigation"  data-drawer-show="drawer-navigation" data-drawer-placement="right" aria-controls="drawer-navigation">
             <span
                 style="position: relative; display: inline-block; cursor: pointer;">
                 <img src="<?= base_url('icons/mail.svg') ?>" alt="notificaciones" class="w-8 h-8" style="color:white;">
@@ -28,28 +28,18 @@
     <div class="py-4 overflow-y-auto">
         <ul class="space-y-2 font-medium">
             <!-- ... menu items ... -->
+             <?php foreach(esc($notifs) as $notif): if($notif['leido'] == 0) ?>
             <li class="bg-gray-700 rounded-lg shadow p-2 flex flex-col space-y-2">
                 <div>
                     <p class="text-sm font-medium text-white">Notificación dinámica</p>
                     <p class="text-xs text-gray-400">Aquí va la descripción o el dato dinámico.</p>
                 </div>
                 <div class="flex flex-col space-y-2 mt-2">
-                    <button class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-xs">Aceptar</button>
-                    <button class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs">Rechazar</button>
+                    <button onclick="window.location.href='<?= base_url('aceptarNotif') ?>'" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-xs">Aceptar</button>
+                    <button onclick="window.location.href='<?= base_url('rechazarNotif') ?>'" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs">Rechazar</button>
                 </div>
             </li>
-
-            <li class="bg-gray-700 rounded-lg shadow p-2 flex items-center space-x-4">
-                <div class="flex-shrink-0">
-                    <svg class="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M12 20a8 8 0 100-16 8 8 0 000 16z" />
-                    </svg>
-                </div>
-                <div class="flex-1 min-w-0">
-                    <p class="text-sm font-medium text-white">Notificación dinámica</p>
-                    <p class="text-xs text-gray-400">Aquí va la descripción o el dato dinámico.</p>
-                </div>
-            </li>
+            <?php endforeach; ?>
         </ul>
 
     </div>

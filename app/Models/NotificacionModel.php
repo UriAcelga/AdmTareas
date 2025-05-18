@@ -25,7 +25,7 @@ class NotificacionModel extends Model {
     protected $cleanValidationRules = true;
 
 
-    public function list_by_email($email_usuario) {
+    public function get_by_email($email_usuario) {
         return $this->where('email_usuario', $email_usuario)->orderBy('created_at', 'DESC');
     }
 
@@ -34,4 +34,12 @@ class NotificacionModel extends Model {
                     ->where('leido', 0)
                     ->countAllResults() > 0;
     }
+
+    public function marcar_como_leida($id) {
+        return $this->where('id', $id)
+                    ->where('leido', 0)
+                    ->set(['leido' => 1])
+                    ->update();
+    }
+
 }

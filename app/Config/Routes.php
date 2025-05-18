@@ -12,3 +12,6 @@ $routes->post('registrar', 'Auth::registrar_usuario');
 $routes->get('logout', 'Auth::logout');
 $routes->get('home', 'HomeController::index');
 $routes->get('tareas/(:num)', 'TareaController::index/$1');
+
+$routes->get('aceptarNotif', 'NotificacionController::aceptar');
+$routes->get('rechazarNotif', 'NotificacionController::rechazar');
