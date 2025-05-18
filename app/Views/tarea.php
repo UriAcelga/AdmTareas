@@ -21,13 +21,17 @@
                 if ($subtarea['estado'] == 'Definida'): ?>
                     <div class="space-y-2 mb-2">
                         <?= view_cell('SubtareaCell::mostrar', [
+                            'id' => $subtarea['id'],
+                            'es_dueño' => esc($tarea['idDueño']) ? esc($tarea['idDueño']) == session()->get('id_usuario') : false,
                             'asunto' => $subtarea['asunto'],
+                            'descripcion' => $subtarea['descripcion'],
                             'estado' => $subtarea['estado'],
                             'prioridad' => $subtarea['prioridad'],
-                            'descripcion' => $subtarea['descripcion'],
-                            'usuario' => $subtarea['id_responsable'],
                             'fecha_vencimiento' => $subtarea['fecha_vencimiento'],
-                            'color' => $subtarea['color']
+                            'fecha_recordatorio' => $subtarea['fecha_recordatorio'],
+                            'usuario' => $subtarea['id_responsable'],
+                            'color' => $subtarea['color'],
+                            'id_tarea' => $subtarea['id_tarea'],
                         ]) ?>
                     </div>
             <?php endif;
@@ -40,13 +44,17 @@
                 if ($subtarea['estado'] == 'En proceso'): ?>
                     <div class="space-y-2 mb-2">
                         <?= view_cell('SubtareaCell::mostrar', [
+                            'id' => $subtarea['id'],
+                            'es_dueño' => esc($tarea['idDueño']) ? esc($tarea['idDueño']) == session()->get('id_usuario') : false,
                             'asunto' => $subtarea['asunto'],
+                            'descripcion' => $subtarea['descripcion'],
                             'estado' => $subtarea['estado'],
                             'prioridad' => $subtarea['prioridad'],
-                            'descripcion' => $subtarea['descripcion'],
-                            'usuario' => $subtarea['id_responsable'],
                             'fecha_vencimiento' => $subtarea['fecha_vencimiento'],
-                            'color' => $subtarea['color']
+                            'fecha_recordatorio' => $subtarea['fecha_recordatorio'],
+                            'usuario' => $subtarea['id_responsable'],
+                            'color' => $subtarea['color'],
+                            'id_tarea' => $subtarea['id_tarea'],
                         ]) ?>
                     </div>
             <?php endif;
@@ -59,13 +67,17 @@
                 if ($subtarea['estado'] == 'Finalizada'): ?>
                     <div class="space-y-2 mb-2">
                         <?= view_cell('SubtareaCell::mostrar', [
+                            'id' => $subtarea['id'],
+                            'es_dueño' => esc($tarea['idDueño']) ? esc($tarea['idDueño']) == session()->get('id_usuario') : false,
                             'asunto' => $subtarea['asunto'],
+                            'descripcion' => $subtarea['descripcion'],
                             'estado' => $subtarea['estado'],
                             'prioridad' => $subtarea['prioridad'],
-                            'descripcion' => $subtarea['descripcion'],
-                            'usuario' => $subtarea['id_responsable'],
                             'fecha_vencimiento' => $subtarea['fecha_vencimiento'],
-                            'color' => $subtarea['color']
+                            'fecha_recordatorio' => $subtarea['fecha_recordatorio'],
+                            'usuario' => $subtarea['id_responsable'],
+                            'color' => $subtarea['color'],
+                            'id_tarea' => $subtarea['id_tarea'],
                         ]) ?>
                     </div>
             <?php endif;

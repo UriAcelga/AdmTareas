@@ -8,12 +8,14 @@ class TareaCell
     {
         $params = [
             'id' => $params['id'] ?? '1',
+            'idDueño' => $params['idDueño'],
+            'es_dueño' => $params['es_dueño'] ?? false,
             'asunto' => $params['asunto'] ?? 'Tarea',
-            'color' => $params['color'] ?? 'red-500',
+            'descripcion' => $params['descripcion'] ?? "",
             'prioridad' => $params['prioridad'] ?? 'Baja',
-            'usuario' => $params['usuario'] ?? 'Usuario',
-            'fecha' => $params['fecha'] ?? '20/6',
-            'descripcion' => $params['descripcion'] ?? ""
+            'estado' => $params['estado'] ?? 'Definida',
+            'fecha' => $params['fecha'] ?? '2026-20-6',
+            'color' => $params['color'] ?? 'red-500',
         ];
 
         return view('componentes/tareaCard', $params);

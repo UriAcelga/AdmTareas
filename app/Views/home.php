@@ -23,11 +23,14 @@
     <?php foreach ($tareasPropias as $tarea): ?>
         <?= view_cell('TareaCell::mostrar', [
             'id' => $tarea['id'],
+            'idDueño' => $tarea['idDueño'],
+            'es_dueño' => session()->get('id_usuario') == $tarea['idDueño'],
             'asunto' => $tarea['asunto'],
-            'color' => $tarea['color'],
+            'descripcion' =>  $tarea['descripcion'],
             'prioridad' => $tarea['prioridad'],
+            'estado' => $tarea['estado'],
+            'color' => $tarea['color'],
             'fecha' =>  $tarea['fecha_vencimiento'],
-            'descripcion' =>  $tarea['descripcion']
         ]); ?>
     <?php endforeach; ?>
 
@@ -51,11 +54,14 @@
     <?php foreach ($tareasColaborando as $tarea): ?>
         <?= view_cell('TareaCell::mostrar', [
             'id' => $tarea['id'],
+            'idDueño' => $tarea['idDueño'],
+            'es_dueño' => session()->get('id_usuario') == $tarea['idDueño'],
             'asunto' => $tarea['asunto'],
-            'color' => $tarea['color'],
+            'descripcion' =>  $tarea['descripcion'],
             'prioridad' => $tarea['prioridad'],
+            'estado' => $tarea['estado'],
+            'color' => $tarea['color'],
             'fecha' =>  $tarea['fecha_vencimiento'],
-            'descripcion' =>  $tarea['descripcion']
         ]); ?>
     <?php endforeach; ?>
 
