@@ -19,7 +19,7 @@
                 <span class="px-3 py-1 border border-red-600 bg-red-100 text-red-600 min-w-[70px] text-center inline-block rounded-full text-sm">Alta</span>
             <?php endif; ?>
             <img src="<?= base_url('icons/timer.svg') ?>" alt="fecha" class="w-4 h-4">
-            <span><?= esc($fecha) ?></span>
+            <span><?= esc($fecha_vencimiento) ?></span>
             </div>
         </div>
     </div>

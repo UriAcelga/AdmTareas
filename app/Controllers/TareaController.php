@@ -28,6 +28,7 @@ class TareaController extends BaseController
             'tarea' => $tarea,
             'subtareas' => $subtareas
         ];
+        $data['es_dueño'] = $data['tarea']['idDueño'] == session()->get('id_usuario');
 
         return view('tarea', $data);
     }

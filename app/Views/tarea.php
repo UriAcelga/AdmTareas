@@ -11,8 +11,15 @@
 <div class="bg-gradient-to-l from-gray-600 to-<?= esc($tarea['color']) ?> p-4 rounded-md shadow-md my-8">
     <div class="flex justify-between items-center mb-4">
         <h2 class="text-white font-bold text-lg"><?= esc($tarea['asunto']) ?></h2>
-        <img src="<?= base_url('icons/edit.svg') ?>" alt="modificar tarea" class="w-6 h-6 mr-4">
-        <?= null // view_cell('ModalCell::modificarTarea') ?>
+        <div class="absolute left-1/2 transform -translate-x-1/2">
+            <h3 class="text-white font-bold text-lg"><?= esc($tarea['estado']) ?></h3>
+        </div>
+        <?php if(esc($es_dueño)): ?>
+        <div class="flex items-center ml-auto space-x-2">
+            <img src="<?= base_url('icons/edit.svg') ?>" alt="modificar tarea" class="w-6 h-6 mr-4">
+            <img src="<?= base_url('icons/delete.svg') ?>" alt="eliminar tarea" class="w-6 h-6 mr-4">
+        </div>
+        <?php endif; ?>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div class="bg-gray-900 rounded-md shadow-sm p-4 min-h-[250px]">
