@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Cells\TareaCell;
 use App\Controllers\BaseController;
+use App\Models\NotificacionModel;
 use App\Models\TareaModel;
 use App\Models\SubtareaModel;
 use App\Models\UsuarioModel;
@@ -21,6 +22,7 @@ class TareaController extends BaseController
         $modeloTareas = new TareaModel();
         $modeloSubtareas = new SubtareaModel();
         $modeloUsuarios = new UsuarioModel();
+        $modeloNotif = new NotificacionModel();
         $tarea = $modeloTareas->buscar_por_id($id);
         $subtareas = $modeloSubtareas->get_subtareas_por_tarea_id($id);
 
@@ -29,7 +31,8 @@ class TareaController extends BaseController
         }
         $data = [
             'tarea' => $tarea,
-            'subtareas' => $subtareas
+            'subtareas' => $subtareas,
+            'notificaciones' =>  $modeloNotif->get_notificaciones_no_leidas_by_email(session()->get('email'))
         ];
         $data['es_dueño'] = $data['tarea']['idDueño'] == session()->get('id_usuario');
         if($data['es_dueño']) {

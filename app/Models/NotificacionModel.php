@@ -9,6 +9,7 @@ class NotificacionModel extends Model {
         'id',
         'email_usuario',
         'id_tarea',
+        'id_subtarea',
         'tipo',
         'email_invitador',
         'created_at',
@@ -47,11 +48,40 @@ class NotificacionModel extends Model {
     }
 
     public function get_notificaciones_no_leidas_by_email($emailUsuario) {
-        return $this->where('email_usuario', $emailUsuario)->where('leido', 0)->orderBy('created_at', 'DESC')->findAll();
+        $tareaModel = new \App\Models\TareaModel();
+        $subtareaModel = new \App\Models\SubtareaModel(); 
+        $data = $this->where('email_usuario', $emailUsuario)->where('leido', 0)->orderBy('created_at', 'DESC')->findAll();
+        foreach($data as &$notif) {
+            if($notif['id_tarea']) {
+                $notif['asunto'] = $tareaModel->get_asunto($notif['id_tarea']);
+                $notif['fecha_recordatorio'] = $tareaModel->get_fecha_recordatorio($notif['id_tarea']);
+            }
+            if($notif['id_subtarea']) {
+                $notif['asunto'] = $subtareaModel->get_asunto($notif['id_subtarea']);
+                $notif['fecha_recordatorio'] = $subtareaModel->get_fecha_recordatorio($notif['id_subtarea']);
+            }
+        }
+        return $data;
     }
 
     public function usuario_ya_invitado($idTarea, $email_usuario) {
-        return $this->where('id_tarea', $idTarea)->where('email_usuario', $email_usuario)->countAllResults() > 0;
+        return $this->where('id_tarea', $idTarea)
+                    ->where('email_usuario', $email_usuario)
+                    ->where('tipo', 'invitacion')
+                    ->countAllResults() > 0;
+    }
+
+    public function usuario_ya_recordado($idTarea, $email_usuario) {
+        return $this->where('id_tarea', $idTarea)
+                    ->where('email_usuario', $email_usuario)
+                    ->where('tipo', 'recordatorio') 
+                    ->countAllResults() > 0;
+    }
+    public function usuario_ya_recordado_subtarea($idSubtarea, $email_usuario) {
+        return $this->where('id_subtarea', $idSubtarea)
+                    ->where('email_usuario', $email_usuario)
+                    ->where('tipo', 'recordatorio') 
+                    ->countAllResults() > 0;
     }
 
 }

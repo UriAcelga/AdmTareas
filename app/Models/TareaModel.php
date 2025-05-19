@@ -75,6 +75,14 @@ class TareaModel extends Model
         return $this->where('id', $id)->select('fecha_vencimiento')->first();
     }
 
+    public function get_fecha_recordatorio($id) {
+        return $this->select('fecha_recordatorio')->find($id)['fecha_recordatorio'];
+    }
+
+    public function get_asunto($id) {
+        return $this->select('asunto')->find($id)['asunto'];
+    }
+
     public function estado_es_completada($id) {
         return $this->where('id', $id)->select('estado')->first()['estado'] == 'Completada';
     }
@@ -97,6 +105,26 @@ class TareaModel extends Model
             $tarea['color'] = $this->colores[$tarea['color']];
         }
         unset($tarea);
+        return $tareas;
+    }
+
+    public function get_id_tareas_posibles_notificaciones_por_dueño($id) {
+        $tareas = $this->where('idDueño', $id)
+              ->select('id')
+              ->where('fecha_recordatorio <=', date('Y-m-d'))
+              ->where('fecha_recordatorio IS NOT NULL')
+              ->whereIn('estado', ['Definida', 'En proceso'])
+              ->findAll();
+        return $tareas;
+    }
+
+    public function get_id_tareas_posibles_notificaciones_por_colaborador($email) {
+        $tareas = $this->select('tarea.id')
+              ->join('colaboracion', 'colaboracion.idTarea = tarea.id')
+              ->where('colaboracion.emailColaborador', $email)
+              ->where('tarea.fecha_recordatorio <=', date('Y-m-d'))
+              ->whereIn('estado', ['Definida', 'En proceso'])
+              ->findAll();
         return $tareas;
     }
 

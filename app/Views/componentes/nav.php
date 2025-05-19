@@ -30,7 +30,7 @@
             <!-- ... menu items ... -->
             <?php if (!empty($notifs)):
                 foreach (esc($notifs) as $notif):
-                if($notif['tipo'] == 'invitacion'): ?>
+                    if ($notif['tipo'] == 'invitacion'): ?>
                         <li class="bg-gray-700 rounded-lg shadow p-2 flex flex-col space-y-2">
                             <div>
                                 <p class="text-sm font-medium text-white">Invitación a tarea</p>
@@ -43,15 +43,56 @@
                                 <input type="hidden" name="email_usuario" value="<?= $notif['email_usuario'] ?>">
                                 <button type="submit" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-xs w-full">Aceptar</button>
                                 <?= form_close() ?>
-                                <?= form_open('rechazarInvitacion', ['id' => 'formRechazarInv-'. $notif['id'], 'method' => 'post']) ?>
+                                <?= form_open('marcarLeida', ['id' => 'formRechazarInv-' . $notif['id'], 'method' => 'post']) ?>
                                 <input type="hidden" name="id_notif" value="<?= $notif['id'] ?>">
                                 <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs w-full">Rechazar</button>
                                 <?= form_close() ?>
                             </div>
                         </li>
-            <?php endif;
-                endforeach;
-            endif; ?>
+                    <?php elseif ($notif['tipo'] == 'recordatorio'): ?>
+                        <?php if ($notif['id_tarea']): ?>
+                            <li class="bg-gray-700 rounded-lg shadow p-2 flex flex-col space-y-2">
+                                <div>
+                                    <div class="flex justify-between items-center mb-2">
+                                        <p class="text-sm font-medium text-white">Recordatorio</p>
+
+                                        <?= form_open('marcarLeida', ['id' => 'formCerrar-' . $notif['id'], 'method' => 'post']) ?>
+                                        <input type="hidden" name="id_notif" value="<?= $notif['id'] ?>">
+                                        <button type="submit" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                            </svg>
+                                            <span class="sr-only">Cerrar notificación</span>
+                                        </button>
+                                        <?= form_close() ?>
+                                    </div>
+                                    <p class="text-xs text-gray-400">Tienes hasta <?= $notif['fecha_recordatorio'] ?> para completar <span class="text-bold"> "<?= $notif['asunto'] ?>" </span> </p>
+                                </div>
+                            </li>
+                        <?php endif; ?>
+                        <?php if ($notif['id_subtarea']): ?>
+                            <li class="bg-gray-700 rounded-lg shadow p-2 flex flex-col space-y-2">
+                                <div>
+                                    <div class="flex justify-between items-center mb-2">
+                                        <p class="text-sm font-medium text-white">Recordatorio</p>
+
+                                        <?= form_open('marcarLeida', ['id' => 'formCerrar-' . $notif['id'], 'method' => 'post']) ?>
+                                        <input type="hidden" name="id_notif" value="<?= $notif['id'] ?>">
+                                        <button type="submit" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                            </svg>
+                                            <span class="sr-only">Cerrar notificación</span>
+                                        </button>
+                                        <?= form_close() ?>
+                                    </div>
+                                    <p class="text-xs text-gray-400">Tienes hasta <?= $notif['fecha_recordatorio'] ?> para completar <span class="text-bold"> "<?= $notif['asunto'] ?>" </span> </p>
+                                </div>
+                            </li>
+                        <?php endif; ?>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </ul>
 
     </div>

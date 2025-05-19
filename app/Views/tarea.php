@@ -3,7 +3,7 @@
 <?= $this->section('title') ?> Mis Tareas <?= $this->endSection() ?>
 
 <?= $this->section('nav') ?>
-<?= view_cell('NavCell::mostrar', ['title' => 'Administrador de Tareas']) ?>
+<?= view_cell('NavCell::mostrar', ['title' => 'Administrador de Tareas', 'notifs' => esc($notificaciones)]) ?>
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>

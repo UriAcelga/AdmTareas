@@ -31,7 +31,7 @@
     </div>
 </div>
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-16">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
     <?php foreach ($tareasPropias as $tarea):
         if ($tarea['estado'] != 'Archivada'): ?>
             <?= view_cell('TareaCell::mostrar', [
@@ -50,13 +50,13 @@
 
 </div>
 
-<div class="flex items-center mb-4 relative">
+<div class="flex items-center my-12 relative">
     <div class="absolute left-1/2 transform -translate-x-1/2">
         <h2 class="text-xl font-semibold">Colaborando en</h2>
     </div>
 </div>
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
     <?php foreach ($tareasColaborando as $tarea):
         if ($tarea['estado'] != 'Archivada'): ?>
             <?= view_cell('TareaCell::mostrar', [
@@ -74,13 +74,13 @@
     endforeach; ?>
 </div>
 
-<div class="flex items-center mb-4 relative">
+<div class="flex items-center my-12 relative">
     <div class="absolute left-1/2 transform -translate-x-1/2">
         <h2 class="text-xl font-semibold">Archivadas</h2>
     </div>
 </div>
 
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
     <?php foreach ($tareasPropias as $tarea):
         if ($tarea['estado'] == 'Archivada'): ?>
             <?= view_cell('TareaCell::mostrar', [

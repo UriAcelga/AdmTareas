@@ -67,31 +67,32 @@ class SubtareaModel extends Model
         return $this->colores[$color] ?? $this->colores['red'];
     }
 
-    public function get_fecha_vencimiento_string($id) {
-        return $this->select("DATE_FORMAT(fecha_vencimiento, '%m/%d') as fecha_vencimiento_string")
-                ->where('id', $id)
-                ->first()['fecha_vencimiento_string'] ?? null;
-    }
-
-    public function recordatorio_debe_notificarse($id) {
-        $subtarea = $this->find($id);
-        if (!$subtarea) {
-            return false;
-        }
-        $now = date('Y-m-d H:i:s');
-        return (
-            !empty($subtarea['fecha_recordatorio']) &&
-            $subtarea['fecha_recordatorio'] <= $now &&
-            $subtarea['estado'] === 'En proceso'
-        );
-    }
-
     public function get_subtareas_por_tarea_id($id) {
         $tareas = $this->where('id_tarea', $id)->findAll();
         foreach($tareas as &$tarea) {
             $tarea['color'] = $this->get_clase_color($tarea['color']);
         }
         return $tareas;
+    }
+
+    public function get_fecha_recordatorio($id) {
+        return $this->select('fecha_recordatorio')->find($id)['fecha_recordatorio'];
+    }
+
+    public function get_asunto($id) {
+        return $this->select('asunto')->find($id)['asunto'];
+    }
+
+
+
+    public function get_id_subtareas_posibles_notificaciones_por_idTarea($idTarea) {
+        $subtareas = $this->where('id_tarea', $idTarea)
+            ->select('id')
+            ->where('fecha_recordatorio <=', date('Y-m-d'))
+            ->where('fecha_recordatorio IS NOT NULL')
+            ->whereIn('estado', ['Definida', 'En proceso'])
+            ->findAll();
+        return $subtareas;
     }
 
     public function completar_subtarea($id) {

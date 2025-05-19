@@ -28,6 +28,7 @@ $routes->post('desarrollarSubtarea', 'SubtareaController::desarrollar');
 $routes->post('completarSubtarea', 'SubtareaController::completar');
 $routes->post('subtareaAlBacklog', 'SubtareaController::al_backlog');
 
+$routes->get('checkearRecordatorios', 'NotificacionController::checkearRecordatorios');
 $routes->post('invitarColaborador', 'NotificacionController::invitar');
 $routes->post('aceptarInvitacion', 'NotificacionController::aceptarInvitacion');
-$routes->post('rechazarInvitacion', 'NotificacionController::rechazarInvitacion');
+$routes->post('marcarLeida', 'NotificacionController::marcarLeida');

@@ -36,7 +36,7 @@ class Auth extends BaseController
                 'loggeado' => true,
             ];
             session()->set($sessionData);
-            return redirect()->to(base_url('home'));
+            return redirect()->to(base_url('checkearRecordatorios'));
         } else {
             session()->setFlashdata('error', 'Credenciales inválidas');
             return redirect()->back()->withInput();

@@ -1,6 +1,6 @@
 <a href="<?= base_url('tareas/' . esc($id)) ?>" class="block">
-    <div class="bg-gradient-to-l from-gray-600 <?= esc($estado) == 'Archivada' ? 'to-gray-500' : esc($color) ?> p-4 rounded-md shadow-md mb-12 mx-4 cursor-pointer transition hover:shadow-lg">
-        <div class="flex flex-col justify-between items-start w-full lg:w-1/2 min-h-[6rem]">
+    <div class="bg-gradient-to-l from-gray-600 <?= esc($estado) == 'Archivada' ? 'to-gray-500' : esc($color) ?> p-4 rounded-md shadow-md mb-12 mx-4 cursor-pointer transition hover:shadow-lg min-h-[150px]">
+        <div class="flex flex-col justify-between items-start w-full lg:w-1/2 ">
             <div class="flex justify-between w-full mb-4">
                 <h2 class="text-white font-bold text-lg"><?= esc($asunto) ?></h2>
                 <?php if (esc($estado) != 'Archivada'): ?> 
