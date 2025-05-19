@@ -73,7 +73,63 @@ class SubtareaController extends BaseController
 
     public function modificar()
     {
-        return redirect()->back();
+        $subtarea = $this->request->getPost();
+        $modeloSubtarea = new SubtareaModel();
+        $modeloTarea = new TareaModel();
+        $modeloSubtarea->setValidationRules($modeloSubtarea->validationRules);
+        $modeloSubtarea->setValidationMessages($modeloSubtarea->validationMessages);
+
+        $id = $subtarea['id']; $id_tarea = $subtarea['id_tarea'];
+        $data = [
+            'asunto' => $subtarea['asunto'],
+            'descripcion' => $subtarea['descripcion'] ?? "",
+            'prioridad' => $subtarea['prioridad'],
+            'fecha_vencimiento' => $subtarea['vencimiento'],
+            'fecha_recordatorio' => $subtarea['recordatorio'] == '0000-00-00' ? null : $subtarea['recordatorio'],
+            'color' => $subtarea['color'],
+        ];
+
+
+        if(!$modeloSubtarea->validate($data)) {
+            session()->setFlashdata(('subtareaInvalida'), $modeloSubtarea->errors());
+            return redirect()->back()->withInput();
+        }
+        $venc_tarea = $modeloTarea->get_fecha_vencimiento($id_tarea);
+        $hoy = date('Y-m-d');
+        
+        if ($data['fecha_vencimiento'] <= $hoy) {
+            session()->setFlashdata(('subtareaInvalida'), ['fecha_vencimiento' => 'La fecha de vencimiento debe ser posterior a hoy.']);
+            return redirect()->back()->withInput();
+        } 
+        if ($data['fecha_vencimiento'] > $venc_tarea) {
+            session()->setFlashdata(('subtareaInvalida'), ['fecha_vencimiento' => 'La fecha de vencimiento no debe superar la fecha de vencimiento de la tarea: ' . $venc_tarea]);
+            return redirect()->back()->withInput();
+        }
+        if($data['fecha_recordatorio']) {
+            if ( $data['fecha_recordatorio'] <= $hoy) {
+                session()->setFlashdata(('subtareaInvalida'), ['fecha_recordatorio' => 'La fecha de recordatorio debe ser posterior a hoy.']);
+                return redirect()->back()->withInput();
+            }
+            if ($data['fecha_recordatorio'] > $data['fecha_vencimiento']) {
+                session()->setFlashdata(('subtareaInvalida'), ['fecha_recordatorio' => 'La fecha de recordatorio debe ser anterior al vencimiento.']);
+                return redirect()->back()->withInput();
+            }
+        }
+        
+        if(!$modeloSubtarea->update($id, $data)) {
+            session()->setFlashdata(('subtareaInvalida'), $modeloTarea->errors());
+            return redirect()->back()->withInput();
+        }
+
+        if($modeloSubtarea->todas_tareas_completadas_para_tarea($id_tarea)) {
+            $modeloTarea->set_estado_completada($id_tarea);
+        } else if ($modeloSubtarea->todas_tareas_definidas_para_tarea($id_tarea)) {
+            $modeloTarea->set_estado_definida($id_tarea);
+        } else {
+            $modeloTarea->set_estado_en_proceso($id_tarea);
+        }
+
+        return redirect()->to(base_url('tareas/' . $id_tarea));
     }
 
     public function borrar()
@@ -81,12 +137,17 @@ class SubtareaController extends BaseController
         $id = $this->request->getPost('id');
         $idTarea = $this->request->getPost('id_tarea');
         $modeloSubtarea = new SubtareaModel();
+        $modeloTarea = new TareaModel();
         if(!$modeloSubtarea->find($id)) {
             session()->setFlashdata('subtareaInvalida', 'Subtarea no encontrada');
             return redirect()->back();
         }
 
         $modeloSubtarea->delete($id);
+        if(!$modeloSubtarea->hay_subtareas_completadas_para_tarea($idTarea)
+        && !$modeloSubtarea->hay_subtareas_en_proceso_para_tarea($idTarea)) {
+            $modeloTarea->set_estado_definida($idTarea);
+        }
         session()->setFlashdata('subtareaBorrada', true);
         return redirect()->to(base_url('tareas/' . $idTarea));
     }

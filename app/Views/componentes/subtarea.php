@@ -5,7 +5,16 @@
             <p class="font-semibold"><?= esc($asunto) ?></p>
             <?php if (esc($es_dueño)):   ?>
                 <div class="flex space-x-2 ml-auto">
-                    <img src="<?= base_url('icons/edit.svg') ?>" alt="modificarSubtarea" class="w-4 h-4">
+                    <?= view_cell('ModalCell::modificarSubtarea', [
+                        'id' => esc($id),
+                        'id_tarea' => esc($id_tarea),
+                        'asunto' => esc($asunto),
+                        'descripcion' => esc($descripcion),
+                        'prioridad' => esc($prioridad),
+                        'fecha_vencimiento' => esc($fecha_vencimiento),
+                        'fecha_recordatorio' => esc($fecha_recordatorio),
+                        'color' => esc($color),
+                    ]) ?>
                     <?= view_cell('ModalCell::borrarSubtarea', ['id' => esc($id), 'id_tarea' => esc($id_tarea)]) ?>
                 </div>
             <?php endif; ?>
@@ -32,7 +41,18 @@
                     <span class="font-semibold">Completar</span>
                 </button>
                 <?= form_close() ?>
+            <?php else: ?>
+                <?= form_open('subtareaAlBacklog', ['id' => 'alBacklogForm', 'method' => 'post']) ?>
+                <input type="hidden" name="id" value="<?= esc($id) ?>">
+                <input type="hidden" name="id_tarea" value="<?= esc($id_tarea) ?>">
+                <button type="submit" class="flex items-center space-x-2 cursor-pointer bg-transparent border-none p-0 m-0 focus:outline-none" style="background: none;">
+                    <img src="<?= base_url('icons/left-arrow.svg') ?>" alt="checkboxCompletar" class="w-4 h-4 checkbox-unchecked">
+                    <span class="font-semibold">Al Backlog</span>
+                </button>
+                <?= form_close() ?>
             <?php endif; ?>
+            
+            <?php if (esc($estado) != 'Completada'): ?>
             <div class="flex items-center space-x-2">
                 <?php if ($prioridad == 'Baja'): ?>
                     <span class="px-3 py-1 border border-gray-200 bg-gray-300 rounded-full text-sm min-w-[70px] text-center inline-block">Baja</span>
@@ -44,6 +64,7 @@
                 <img src="<?= base_url('icons/timer.svg') ?>" alt="fecha" class="w-4 h-4">
                 <span><?= esc($fecha_vencimiento) ?></span>
             </div>
+            <?php endif; ?>
         </div>
     </div>
 </div>

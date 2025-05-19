@@ -41,9 +41,16 @@ class ModalCell
     }
     public function modificarSubtarea(array $params = [])
     {
-        $data = [];
-        var_dump($data);
-        die;
+        $data = [
+            'id' => $params['id'],
+            'id_tarea' => $params['id_tarea'],
+            'asunto' => $params['asunto'],
+            'descripcion' => $params['descripcion'],
+            'prioridad' => $params['prioridad'],
+            'fecha_vencimiento' => $params['fecha_vencimiento'],
+            'fecha_recordatorio' => $params['fecha_recordatorio'] != '0000-00-00' ? $params['fecha_recordatorio'] : "",
+            'color' => $params['color'],
+        ];
         return view('componentes/modalSubtareaModificar', $data);
     }
 
