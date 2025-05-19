@@ -18,3 +18,5 @@ $routes->get('rechazarNotif', 'NotificacionController::rechazar');
 
 $routes->post('crearTarea', 'TareaController::crear');
 $routes->post('modificarTarea', 'TareaController::modificar');
+$routes->post('crearSubtarea', 'SubtareaController::crear');
+$routes->post('modificarSubtarea', 'SubtareaController::modificar');

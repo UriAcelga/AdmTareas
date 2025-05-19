@@ -67,3 +67,21 @@
 
 </div>
 <?= $this->endSection() ?>
+<?= $this->section('scripts')?>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        <?php if (session()->has('errors')) : ?>
+            // Obtener el elemento del modal por su ID
+            const modalElement = document.getElementById('tarea-crear-modal');
+
+            if (modalElement) {
+                // Crear una instancia del modal de Flowbite
+                const modal = new flowbite.Modal(modalElement);
+
+                // Mostrar el modal
+                modal.show();
+            }
+        <?php endif; ?>
+    });
+</script>
+<?= $this->endSection() ?>

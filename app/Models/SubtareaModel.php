@@ -53,12 +53,12 @@ class SubtareaModel extends Model
     protected $skipValidation = false;
     protected $cleanValidationRules = true;
     protected $colores = [
-            'yellow' => 'yellow-500',
-            'red' => 'red-500',
-            'pink' => 'pink-400',
-            'indigo' => 'indigo-600',
-            'purple' => 'purple-500',
-            'green' => 'green-500'
+            'yellow' => 'to-yellow-500',
+            'red' => 'to-red-500',
+            'pink' => 'to-pink-400',
+            'indigo' => 'to-indigo-600',
+            'purple' => 'to-purple-500',
+            'green' => 'to-green-500'
         ];
 
     public function get_clase_color_by_id($id) {

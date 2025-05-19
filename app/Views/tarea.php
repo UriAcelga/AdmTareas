@@ -7,89 +7,100 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('content') ?>
-<a href="<?= base_url('home') ?>" class="text-white font-bold text-xl hover:underline"><<< Volver a Principal</a>
-<div class="bg-gradient-to-l from-gray-600 to-<?= esc($tarea['color']) ?> p-4 rounded-md shadow-md my-8">
-    <div class="flex justify-between items-center mb-4">
-        <h2 class="text-white font-bold text-lg"><?= esc($tarea['asunto']) ?></h2>
-        <div class="absolute left-1/2 transform -translate-x-1/2">
-            <h3 class="text-white font-bold text-lg"><?= esc($tarea['estado']) ?></h3>
-        </div>
-        <?php if(esc($es_dueño)): ?>
-        <div class="flex items-center ml-auto space-x-2">
-            <img src="<?= base_url('icons/edit.svg') ?>" alt="modificar tarea" class="w-6 h-6 mr-4">
-            <img src="<?= base_url('icons/delete.svg') ?>" alt="eliminar tarea" class="w-6 h-6 mr-4">
-        </div>
-        <?php endif; ?>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div class="bg-gray-900 rounded-md shadow-sm p-4 min-h-[250px]">
-            <h4 class="font-semibold mb-2">Definido</h4>
-            <?php foreach (esc($subtareas) as $subtarea):
-                if ($subtarea['estado'] == 'Definida'): ?>
-                    <div class="space-y-2 mb-2">
-                        <?= view_cell('SubtareaCell::mostrar', [
-                            'id' => $subtarea['id'],
-                            'es_dueño' => esc($es_dueño),
-                            'asunto' => $subtarea['asunto'],
-                            'descripcion' => $subtarea['descripcion'],
-                            'estado' => $subtarea['estado'],
-                            'prioridad' => $subtarea['prioridad'],
-                            'fecha_vencimiento' => $subtarea['fecha_vencimiento'],
-                            'fecha_recordatorio' => $subtarea['fecha_recordatorio'],
-                            'usuario' => $subtarea['id_responsable'],
-                            'color' => $subtarea['color'],
-                            'id_tarea' => $subtarea['id_tarea'],
-                        ]) ?>
-                    </div>
-            <?php endif;
-            endforeach; ?>
-        </div>
+<a href="<?= base_url('home') ?>" class="text-white font-bold text-xl hover:underline">
+    <<< Volver a Principal</a>
+        <div class="bg-gradient-to-l from-gray-600 <?= esc($tarea['color']) ?> p-4 rounded-md shadow-md my-8">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-white font-bold text-lg"><?= esc($tarea['estado']) ?> - Prioridad <?= esc($tarea['prioridad']) ?></h3>
 
-        <div class="bg-gray-900 rounded-md shadow-sm p-4">
-            <h4 class="font-semibold mb-2">En Proceso</h4>
-            <?php foreach (esc($subtareas) as $subtarea):
-                if ($subtarea['estado'] == 'En proceso'): ?>
-                    <div class="space-y-2 mb-2">
-                        <?= view_cell('SubtareaCell::mostrar', [
-                            'id' => $subtarea['id'],
-                            'es_dueño' => esc($es_dueño),
-                            'asunto' => $subtarea['asunto'],
-                            'descripcion' => $subtarea['descripcion'],
-                            'estado' => $subtarea['estado'],
-                            'prioridad' => $subtarea['prioridad'],
-                            'fecha_vencimiento' => $subtarea['fecha_vencimiento'],
-                            'fecha_recordatorio' => $subtarea['fecha_recordatorio'],
-                            'usuario' => $subtarea['id_responsable'],
-                            'color' => $subtarea['color'],
-                            'id_tarea' => $subtarea['id_tarea'],
+                <?php if (esc($es_dueño)): ?>
+                    <div class="flex items-center ml-auto space-x-2">
+                        <?= view_cell('ModalCell::modificarTarea', [
+                            'id' => esc($tarea['id']),
+                            'asunto' => esc($tarea['asunto']),
+                            'descripcion' => esc($tarea['descripcion']),
+                            'prioridad' => esc($tarea['prioridad']),
+                            'fecha_vencimiento' => esc($tarea['fecha_vencimiento']),
+                            'fecha_recordatorio' => esc($tarea['fecha_recordatorio']),
+                            'color' => esc($tarea['color']),
                         ]) ?>
+                        <img src="<?= base_url('icons/delete.svg') ?>" alt="eliminar tarea" class="w-6 h-6 mr-4">
                     </div>
-            <?php endif;
-            endforeach; ?>
+                <?php endif; ?>
+            </div>
+            <div class="flex justify-center mb-4">
+                <h2 class="text-white font-bold text-lg"><?= esc($tarea['asunto']) ?></h2>
+            </div>
         </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-gray-900 rounded-md shadow-sm p-4 min-h-[250px]">
+                <h4 class="font-semibold mb-2">Definido</h4>
+                <?php foreach (esc($subtareas) as $subtarea):
+                    if ($subtarea['estado'] == 'Definida'): ?>
+                        <div class="space-y-2 mb-2">
+                            <?= view_cell('SubtareaCell::mostrar', [
+                                'id' => $subtarea['id'],
+                                'es_dueño' => esc($es_dueño),
+                                'asunto' => $subtarea['asunto'],
+                                'descripcion' => $subtarea['descripcion'],
+                                'estado' => $subtarea['estado'],
+                                'prioridad' => $subtarea['prioridad'],
+                                'fecha_vencimiento' => $subtarea['fecha_vencimiento'],
+                                'fecha_recordatorio' => $subtarea['fecha_recordatorio'],
+                                'usuario' => $subtarea['id_responsable'],
+                                'color' => $subtarea['color'],
+                                'id_tarea' => $subtarea['id_tarea'],
+                            ]) ?>
+                        </div>
+                <?php endif;
+                endforeach; ?>
+            </div>
 
-        <div class="bg-gray-900 rounded-md shadow-sm p-4">
-            <h4 class="font-semibold mb-2">Finalizado</h4>
-            <?php foreach (esc($subtareas) as $subtarea):
-                if ($subtarea['estado'] == 'Finalizada'): ?>
-                    <div class="space-y-2 mb-2">
-                        <?= view_cell('SubtareaCell::mostrar', [
-                            'id' => $subtarea['id'],
-                            'es_dueño' => esc($es_dueño),
-                            'asunto' => $subtarea['asunto'],
-                            'descripcion' => $subtarea['descripcion'],
-                            'estado' => $subtarea['estado'],
-                            'prioridad' => $subtarea['prioridad'],
-                            'fecha_vencimiento' => $subtarea['fecha_vencimiento'],
-                            'fecha_recordatorio' => $subtarea['fecha_recordatorio'],
-                            'usuario' => $subtarea['id_responsable'],
-                            'color' => $subtarea['color'],
-                            'id_tarea' => $subtarea['id_tarea'],
-                        ]) ?>
-                    </div>
-            <?php endif;
-            endforeach; ?>
+            <div class="bg-gray-900 rounded-md shadow-sm p-4">
+                <h4 class="font-semibold mb-2">En Proceso</h4>
+                <?php foreach (esc($subtareas) as $subtarea):
+                    if ($subtarea['estado'] == 'En proceso'): ?>
+                        <div class="space-y-2 mb-2">
+                            <?= view_cell('SubtareaCell::mostrar', [
+                                'id' => $subtarea['id'],
+                                'es_dueño' => esc($es_dueño),
+                                'asunto' => $subtarea['asunto'],
+                                'descripcion' => $subtarea['descripcion'],
+                                'estado' => $subtarea['estado'],
+                                'prioridad' => $subtarea['prioridad'],
+                                'fecha_vencimiento' => $subtarea['fecha_vencimiento'],
+                                'fecha_recordatorio' => $subtarea['fecha_recordatorio'],
+                                'usuario' => $subtarea['id_responsable'],
+                                'color' => $subtarea['color'],
+                                'id_tarea' => $subtarea['id_tarea'],
+                            ]) ?>
+                        </div>
+                <?php endif;
+                endforeach; ?>
+            </div>
+
+            <div class="bg-gray-900 rounded-md shadow-sm p-4">
+                <h4 class="font-semibold mb-2">Finalizado</h4>
+                <?php foreach (esc($subtareas) as $subtarea):
+                    if ($subtarea['estado'] == 'Finalizada'): ?>
+                        <div class="space-y-2 mb-2">
+                            <?= view_cell('SubtareaCell::mostrar', [
+                                'id' => $subtarea['id'],
+                                'es_dueño' => esc($es_dueño),
+                                'asunto' => $subtarea['asunto'],
+                                'descripcion' => $subtarea['descripcion'],
+                                'estado' => $subtarea['estado'],
+                                'prioridad' => $subtarea['prioridad'],
+                                'fecha_vencimiento' => $subtarea['fecha_vencimiento'],
+                                'fecha_recordatorio' => $subtarea['fecha_recordatorio'],
+                                'usuario' => $subtarea['id_responsable'],
+                                'color' => $subtarea['color'],
+                                'id_tarea' => $subtarea['id_tarea'],
+                            ]) ?>
+                        </div>
+                <?php endif;
+                endforeach; ?>
+            </div>
         </div>
-    </div>
-</div>
-<?= $this->endSection() ?>
+        </div>
+        <?= $this->endSection() ?>

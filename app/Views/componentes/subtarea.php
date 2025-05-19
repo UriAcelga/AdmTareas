@@ -1,5 +1,5 @@
 <div class="relative flex bg-gray-800 rounded-md p-3">
-    <div class="w-1 bg-<?= esc($color) ?> rounded-l-md absolute left-0 top-0 bottom-0"></div>
+    <div class="w-1 <?= 'bg-' . str_replace('to-', "", esc($color)) ?> rounded-l-md absolute left-0 top-0 bottom-0"></div>
     <div class="flex-1 pl-3">
         <p class="font-semibold"><?= esc($asunto) ?></p>
         <div class="text-gray-400 text-xs mb-1">

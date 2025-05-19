@@ -14,7 +14,7 @@
         <?= $this->renderSection('nav') ?>
 
         <?= $this->renderSection('content') ?>
-        
+
 
         <div class="mt-4 flex justify-end items-center space-x-4 text-sm text-gray-600">
             <button class="hover:text-gray-800">Filter <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 inline-block align-middle">
@@ -26,7 +26,7 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
-
+    
     <script>
         // Simple toggle logic (optional, for UI feedback)
         document.getElementById('toggle-active').addEventListener('click', function() {
@@ -54,6 +54,7 @@
             document.getElementById('toggle-active-2').classList.add('text-gray-300');
         });
     </script>
+    <?= $this->renderSection('scripts') ?>
 </body>
 
 </html>
