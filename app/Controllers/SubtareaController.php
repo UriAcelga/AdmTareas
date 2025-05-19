@@ -58,7 +58,7 @@ class SubtareaController extends BaseController
             return redirect()->back()->withInput();
         }
         if($data['fecha_recordatorio']) {
-            if ( $data['fecha_recordatorio'] <= $hoy) {
+            if ( $data['fecha_recordatorio'] < $hoy) {
                 session()->setFlashdata('errors', ['fecha_recordatorio' => 'La fecha de recordatorio debe ser posterior a hoy.']);
 
                 return redirect()->back()->withInput();
@@ -111,7 +111,7 @@ class SubtareaController extends BaseController
             return redirect()->back()->withInput();
         }
         if($data['fecha_recordatorio']) {
-            if ( $data['fecha_recordatorio'] <= $hoy) {
+            if ( $data['fecha_recordatorio'] < $hoy) {
                 session()->setFlashdata(('subtareaInvalida'), ['fecha_recordatorio' => 'La fecha de recordatorio debe ser posterior a hoy.']);
                 return redirect()->back()->withInput();
             }
