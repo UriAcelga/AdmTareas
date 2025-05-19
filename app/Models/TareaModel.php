@@ -75,6 +75,10 @@ class TareaModel extends Model
         return $this->where('id', $id)->select('fecha_vencimiento')->first();
     }
 
+    public function estado_es_completada($id) {
+        return $this->where('id', $id)->select('estado')->first()['estado'] == 'Completada';
+    }
+
     public function get_tareas_por_dueño($id) {
         $tareas = $this->where('idDueño', $id)->orderBy('prioridad', 'DESC')->findAll();
         foreach ($tareas as &$tarea) {
@@ -116,6 +120,10 @@ class TareaModel extends Model
 
     public function set_estado_completada($id) {
         return $this->update($id, ['estado' => 'Completada']);
+    }
+
+    public function set_estado_archivada($id) {
+        return $this->update($id, ['estado' => 'Archivada']);
     }
 
 }

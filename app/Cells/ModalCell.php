@@ -71,4 +71,13 @@ class ModalCell
         ];
         return view('componentes/modalInvitacion', $data);
     }
+
+    public function archivarTarea(array $params = [])
+    {
+        $data = [
+            'id' => $params['id_tarea']
+        ];
+
+        return view('componentes/confirmarArchivarTarea', $data);
+    }
 }

@@ -149,6 +149,10 @@ class SubtareaController extends BaseController
             $modeloTarea->set_estado_definida($idTarea);
         }
         session()->setFlashdata('subtareaBorrada', true);
+
+        if(!$modeloSubtarea->todas_tareas_completadas_para_tarea($idTarea)) {
+            $modeloTarea->set_estado_completada($idTarea);
+        }
         return redirect()->to(base_url('tareas/' . $idTarea));
     }
 

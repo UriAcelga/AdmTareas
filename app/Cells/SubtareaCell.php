@@ -12,6 +12,7 @@ class SubtareaCell
             'asunto' => $params['asunto'] ?? 'Subtarea',
             'descripcion' => $params['descripcion'] ?? '',
             'estado' => $params['estado'] ?? 'Definida',
+            'estado_tarea' => $params['estado_tarea'] ?? 'Definida',
             'prioridad' => $params['prioridad'] ?? 'Normal',
             'fecha_vencimiento' => $params['fecha_vencimiento'] ?? '2030/01/01',
             'fecha_recordatorio' => $params['fecha_recordatorio'] ?? '2030/01/01',

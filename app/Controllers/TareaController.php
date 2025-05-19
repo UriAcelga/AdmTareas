@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Cells\TareaCell;
 use App\Controllers\BaseController;
 use App\Models\TareaModel;
 use App\Models\SubtareaModel;
@@ -153,6 +154,24 @@ class TareaController extends BaseController
 
         $modeloTareas->delete($idTarea);
         session()->setFlashdata('tareaBorrada', true);
+        return redirect()->to(base_url('home'));
+    }
+
+    public function archivar() {
+        $idTarea = $this->request->getPost('id');
+        $modeloTareas = new TareaModel();
+        if(!$modeloTareas->find($idTarea)) {
+            session()->setFlashdata('tareaInvalida', 'Tarea no encontrada');
+            return redirect()->back();
+        }
+        
+        if(!$modeloTareas->estado_es_completada($idTarea)) {
+            session()->setFlashdata('tareaNoCompletada', 'La tarea no pudo archivarse porque faltan subtareas por completar');
+            return redirect()->back();
+        }
+
+        $modeloTareas->set_estado_archivada($idTarea);
+        session()->setFlashdata('tareaArchivada', "La tarea ha sido archivada, puedes encontrarla en la sección 'Archivadas'");
         return redirect()->to(base_url('home'));
     }
 }

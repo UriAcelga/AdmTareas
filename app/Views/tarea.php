@@ -14,14 +14,14 @@
             Volver a Principal
         </span>
     </a>
-    <?php if(esc($es_dueño)): ?>
-    <div>
-        
-        <?= view_cell('ModalCell::invitarColaborador', [
-            'id_tarea' => esc($tarea['id']),
-            'email_dueño' => esc($email_dueño)
-        ]) ?>
-    </div>
+    <?php if (esc($es_dueño) && esc($tarea['estado']) != 'Archivada'): ?>
+        <div>
+
+            <?= view_cell('ModalCell::invitarColaborador', [
+                'id_tarea' => esc($tarea['id']),
+                'email_dueño' => esc($email_dueño)
+            ]) ?>
+        </div>
     <?php endif; ?>
 </div>
 
@@ -65,27 +65,29 @@
         <span class="text-green-800">Subtarea borrada correctamente</span>
     </div>
 <?php endif; ?>
-<div class="bg-gradient-to-l from-gray-600 <?= esc($tarea['color']) ?> p-4 rounded-md shadow-md my-8">
-    <div class="flex justify-between items-center mb-4">
-        <h3 class="text-white font-bold text-lg"><?= esc($tarea['estado']) ?> - Prioridad <?= esc($tarea['prioridad']) ?></h3>
+<div class="bg-gradient-to-l from-gray-600 <?= esc($tarea['estado']) == 'Archivada' ? 'to-gray-500' : esc($tarea['color']) ?> p-4 rounded-md shadow-md my-8">
+    <?php if (esc($tarea['estado']) != 'Archivada'): ?>
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-white font-bold text-lg"><?= esc($tarea['estado']) ?> - Prioridad <?= esc($tarea['prioridad']) ?></h3>
 
-        <?php if (esc($es_dueño)): ?>
-            <div class="flex items-center ml-auto space-x-2">
-                <?= view_cell('ModalCell::modificarTarea', [
-                    'id' => esc($tarea['id']),
-                    'asunto' => esc($tarea['asunto']),
-                    'descripcion' => esc($tarea['descripcion']),
-                    'prioridad' => esc($tarea['prioridad']),
-                    'fecha_vencimiento' => esc($tarea['fecha_vencimiento']),
-                    'fecha_recordatorio' => esc($tarea['fecha_recordatorio']),
-                    'color' => esc($tarea['color']),
-                ]) ?>
-                <?= view_cell('ModalCell::borrarTarea', [
-                    'id' => esc($tarea['id'])
-                ]) ?>
-            </div>
-        <?php endif; ?>
-    </div>
+            <?php if (esc($es_dueño)): ?>
+                <div class="flex items-center ml-auto space-x-2">
+                    <?= view_cell('ModalCell::modificarTarea', [
+                        'id' => esc($tarea['id']),
+                        'asunto' => esc($tarea['asunto']),
+                        'descripcion' => esc($tarea['descripcion']),
+                        'prioridad' => esc($tarea['prioridad']),
+                        'fecha_vencimiento' => esc($tarea['fecha_vencimiento']),
+                        'fecha_recordatorio' => esc($tarea['fecha_recordatorio']),
+                        'color' => esc($tarea['color']),
+                    ]) ?>
+                    <?= view_cell('ModalCell::borrarTarea', [
+                        'id' => esc($tarea['id'])
+                    ]) ?>
+                </div>
+            <?php endif; ?>
+        </div>
+    <?php endif; ?>
     <div class="flex justify-center mb-4">
         <h2 class="text-white font-bold text-lg"><?= esc($tarea['asunto']) ?></h2>
     </div>
@@ -94,7 +96,9 @@
     <div class="bg-gray-900 rounded-md shadow-sm p-4 min-h-[250px]">
         <div class="flex justify-between items-center mb-2">
             <h4 class="font-semibold">Definido</h4>
+            <?php if (esc($tarea['estado']) != 'Archivada'): ?>
             <?= view_cell('ModalCell::crearSubtarea', ['id' => esc($tarea['id'])]) ?>
+            <?php endif; ?>
         </div>
         <?php foreach (esc($subtareas) as $subtarea):
             if ($subtarea['estado'] == 'Definida'): ?>
@@ -141,7 +145,14 @@
     </div>
 
     <div class="bg-gray-900 rounded-md shadow-sm p-4">
-        <h4 class="font-semibold mb-2">Completado</h4>
+        <div class="flex justify-between items-center mb-2">
+            <h4 class="font-semibold">Completado</h4>
+            <?php if(esc($tarea['estado']) == 'Completada'): ?>
+            <div>
+                <?= view_cell('ModalCell::archivarTarea', ['id_tarea' => esc($tarea['id'])]) ?>
+            </div>
+            <?php endif; ?>
+        </div>
         <?php foreach (esc($subtareas) as $subtarea):
             if ($subtarea['estado'] == 'Completada'): ?>
                 <div class="space-y-2 mb-2">
@@ -151,6 +162,7 @@
                         'asunto' => $subtarea['asunto'],
                         'descripcion' => $subtarea['descripcion'],
                         'estado' => $subtarea['estado'],
+                        'estado_tarea' => esc($tarea['estado']),
                         'prioridad' => $subtarea['prioridad'],
                         'fecha_vencimiento' => $subtarea['fecha_vencimiento'],
                         'fecha_recordatorio' => $subtarea['fecha_recordatorio'],
