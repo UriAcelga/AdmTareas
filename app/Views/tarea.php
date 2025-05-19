@@ -88,7 +88,7 @@
             <?php endif; ?>
         </div>
     <?php endif; ?>
-    <div class="flex justify-center mb-4">
+    <div class="flex flex-col items-center mb-4">
         <h2 class="text-white font-bold text-lg"><?= esc($tarea['asunto']) ?></h2>
         <h2 class="text-white text-md"><?= esc($tarea['descripcion']) ?></h2>
     </div>
