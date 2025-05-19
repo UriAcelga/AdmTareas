@@ -46,7 +46,7 @@
                 <input type="hidden" name="id" value="<?= esc($id) ?>">
                 <input type="hidden" name="id_tarea" value="<?= esc($id_tarea) ?>">
                 <button type="submit" class="flex items-center space-x-2 cursor-pointer bg-transparent border-none p-0 m-0 focus:outline-none" style="background: none;">
-                    <img src="<?= base_url('icons/left-arrow.svg') ?>" alt="checkboxCompletar" class="w-4 h-4 checkbox-unchecked">
+                    <img src="<?= base_url('icons/left-arrow.svg') ?>" alt="checkboxAlBacklog" class="w-4 h-4 checkbox-unchecked">
                     <span class="font-semibold">Al Backlog</span>
                 </button>
                 <?= form_close() ?>

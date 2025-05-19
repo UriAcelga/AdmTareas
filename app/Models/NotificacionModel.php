@@ -10,7 +10,7 @@ class NotificacionModel extends Model {
         'email_usuario',
         'id_tarea',
         'tipo',
-        'mensaje',
+        'email_invitador',
         'created_at',
         'leido'
     ];
@@ -40,6 +40,10 @@ class NotificacionModel extends Model {
                     ->where('leido', 0)
                     ->set(['leido' => 1])
                     ->update();
+    }
+
+    public function nueva_notificacion($data) {
+        return $this->insert($data);
     }
 
 }

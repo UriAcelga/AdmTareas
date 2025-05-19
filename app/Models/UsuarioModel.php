@@ -51,7 +51,7 @@ class UsuarioModel extends Model
     }
 
     public function get_email_by_id($id) {
-        return $this->where('id', $id)->select('email')->first();
+        return $this->where('id', $id)->select('email')->first()['email'];
     }
 
     public function registrar_usuario($data) {

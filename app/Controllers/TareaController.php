@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\TareaModel;
 use App\Models\SubtareaModel;
+use App\Models\UsuarioModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
 
 class TareaController extends BaseController
@@ -18,6 +19,7 @@ class TareaController extends BaseController
     {
         $modeloTareas = new TareaModel();
         $modeloSubtareas = new SubtareaModel();
+        $modeloUsuarios = new UsuarioModel();
         $tarea = $modeloTareas->buscar_por_id($id);
         $subtareas = $modeloSubtareas->get_subtareas_por_tarea_id($id);
 
@@ -29,6 +31,9 @@ class TareaController extends BaseController
             'subtareas' => $subtareas
         ];
         $data['es_dueño'] = $data['tarea']['idDueño'] == session()->get('id_usuario');
+        if($data['es_dueño']) {
+            $data['email_dueño'] = $modeloUsuarios->get_email_by_id($data['tarea']['idDueño']);
+        }
 
         return view('tarea', $data);
     }

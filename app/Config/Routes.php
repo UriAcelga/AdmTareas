@@ -26,3 +26,5 @@ $routes->post('borrarSubtarea', 'SubtareaController::borrar');
 $routes->post('desarrollarSubtarea', 'SubtareaController::desarrollar');
 $routes->post('completarSubtarea', 'SubtareaController::completar');
 $routes->post('subtareaAlBacklog', 'SubtareaController::al_backlog');
+
+$routes->post('invitarColaborador', 'NotificacionController::invitar');

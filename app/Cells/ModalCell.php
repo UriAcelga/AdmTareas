@@ -62,4 +62,13 @@ class ModalCell
 
         return view('componentes/confirmarBorrarSubtarea', $data);
     }
+
+    public function invitarColaborador(array $params = [])
+    {
+        $data = [
+            'id_tarea' => $params['id_tarea'],
+            'email_dueño' => $params['email_dueño'],
+        ];
+        return view('componentes/modalInvitacion', $data);
+    }
 }
