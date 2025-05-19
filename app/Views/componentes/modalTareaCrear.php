@@ -74,29 +74,29 @@
                     <div class="flex flex-row gap-4 flex-wrap">
                         <div class="flex flex-row gap-4 w-full">
                             <label class="flex items-center space-x-2">
-                                <input type="radio" name="color" value="red" class="accent-red-500" checked required>
+                                <input type="radio" name="color" value="red" class="accent-red-500" <?= old('color') == 'red' || is_null(old('color')) ? 'checked' : '' ?>  required>
                                 <span class="text-red-500">Rojo</span>
                             </label>
                             <label class="flex items-center space-x-2">
-                                <input type="radio" name="color" value="green" class="accent-green-500" required>
+                                <input type="radio" name="color" value="green" class="accent-green-500" <?= old('color') == 'green' ? 'checked' : '' ?> required>
                                 <span class="text-green-500">Verde</span>
                             </label>
                             <label class="flex items-center space-x-2">
-                                <input type="radio" name="color" value="indigo" class="accent-indigo-500" required>
+                                <input type="radio" name="color" value="indigo" class="accent-indigo-500" <?= old('color') == 'indigo' ? 'checked' : '' ?> required>
                                 <span class="text-blue-500">Azul</span>
                             </label>
                         </div>
                         <div class="flex flex-row gap-4 w-full mt-2">
                             <label class="flex items-center space-x-2">
-                                <input type="radio" name="color" value="purple" class="accent-purple-600" required>
+                                <input type="radio" name="color" value="purple" class="accent-purple-600" <?= old('color') == 'purple' ? 'checked' : '' ?> required>
                                 <span class="text-purple-600">Purp</span>
                             </label>
                             <label class="flex items-center space-x-2">
-                                <input type="radio" name="color" value="yellow" class="accent-yellow-500" required>
+                                <input type="radio" name="color" value="yellow" class="accent-yellow-500" <?= old('color') == 'yellow' ? 'checked' : '' ?> required>
                                 <span class="text-yellow-500">Amar</span>
                             </label>
                             <label class="flex items-center space-x-2">
-                                <input type="radio" name="color" value="pink" class="accent-pink-400" required>
+                                <input type="radio" name="color" value="pink" class="accent-pink-400" <?= old('color') == 'pink' ? 'checked' : '' ?> required>
                                 <span class="text-pink-400">Rosa</span>
                             </label>
                         </div>

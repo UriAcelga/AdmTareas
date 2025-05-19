@@ -25,6 +25,13 @@ class ModalCell
         return view('componentes/modalTareaModificar', $data);
     }
 
+    public function borrarTarea(array $params = []) {
+        $data = [
+            'id' => $params['id'] ?? 0
+        ];
+        return view('componentes/confirmarBorrarTarea', $data);
+    }
+
     public function crearSubtarea()
     {
         return view('componentes/modalSubtareaModificar');

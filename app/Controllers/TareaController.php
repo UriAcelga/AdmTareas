@@ -62,13 +62,13 @@ class TareaController extends BaseController
 
         $data = [
             'idDueño' => session()->get('id_usuario'),
-            'asunto' => $this->request->getPost('asunto'),
-            'descripcion' => $this->request->getPost('descripcion') ?? "",
-            'prioridad' => $this->request->getPost('prioridad'),
+            'asunto' => $asunto,
+            'descripcion' => $descripcion ?? "",
+            'prioridad' => $prioridad,
             'estado' => 'Definida',
-            'fecha_vencimiento' => $this->request->getPost('vencimiento'),
-            'fecha_recordatorio' => $this->request->getPost('recordatorio') ?? null,
-            'color' => $this->request->getPost('color'),
+            'fecha_vencimiento' => $fecha_vencimiento,
+            'fecha_recordatorio' => $fecha_recordatorio ?? null,
+            'color' => $color,
         ];
         if (!$modeloTareas->validate($data)) {
             session()->setFlashdata('errors', $modeloTareas->errors());
@@ -89,8 +89,6 @@ class TareaController extends BaseController
                 return redirect()->back()->withInput();
             }
         }
-        
-        $modeloTareas->insert($data);
         $idNuevaTarea = $modeloTareas->nueva_tarea($data);
         $nuevaTarea = $modeloTareas->buscar_por_id($idNuevaTarea);
 
@@ -111,37 +109,45 @@ class TareaController extends BaseController
             'fecha_recordatorio' => $tarea['recordatorio'] == '0000-00-00' ? null : $tarea['recordatorio'],
             'color' => $tarea['color'],
         ];
-        var_dump($data);
-
+        
         if (!$modeloTareas->validate($data)) {
             session()->setFlashdata('errors', $modeloTareas->errors());
-            var_dump(session()->getFlashdata('errors')); die;
             return redirect()->back()->withInput();
         }
         $hoy = date('Y-m-d');
         if ($data['fecha_vencimiento'] <= $hoy) {
             session()->setFlashdata('errors', ['fecha_vencimiento' => 'La fecha de vencimiento debe ser posterior a hoy.']);
-            var_dump(session()->getFlashdata('errors')); die;
             return redirect()->back()->withInput();
         } 
         if($data['fecha_recordatorio']) {
             if ( $data['fecha_recordatorio'] <= $hoy) {
                 session()->setFlashdata('errors', ['fecha_recordatorio' => 'La fecha de recordatorio debe ser posterior a hoy.']);
-                var_dump(session()->getFlashdata('errors')); die;
                 return redirect()->back()->withInput();
             }
             if ($data['fecha_recordatorio'] > $data['fecha_vencimiento']) {
                 session()->setFlashdata('errors', ['fecha_recordatorio' => 'La fecha de recordatorio debe ser anterior al vencimiento.']);
-                var_dump(session()->getFlashdata('errors')); die;
+
                 return redirect()->back()->withInput();
             }
         }
         if (!$modeloTareas->update($tarea['id'], $data)) {
             session()->setFlashdata('errors', $modeloTareas->errors());
-            var_dump($modeloTareas->errors()); die();
             return redirect()->back()->withInput();
         }
         
         return redirect()->to(base_url('tareas/' . $tarea['id']));
+    }
+
+    public function borrar() {
+        $idTarea = $this->request->getPost('id');
+        $modeloTareas = new TareaModel();
+        if(!$modeloTareas->find($idTarea)) {
+            session()->setFlashdata('tareaInvalida', 'Tarea no encontrada');
+            return redirect()->back();
+        }
+
+        $modeloTareas->delete($idTarea);
+        session()->setFlashdata('tarreaBorrada', true);
+        return redirect()->to(base_url('home'));
     }
 }
