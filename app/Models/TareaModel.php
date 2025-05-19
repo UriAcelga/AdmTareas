@@ -71,6 +71,10 @@ class TareaModel extends Model
         return $this->where('id', $id)->select('idDueño')->first();
     }
 
+    public function get_fecha_vencimiento($id) {
+        return $this->where('id', $id)->select('fecha_vencimiento')->first();
+    }
+
     public function get_tareas_por_dueño($id) {
         $tareas = $this->where('idDueño', $id)->orderBy('prioridad', 'DESC')->findAll();
         foreach ($tareas as &$tarea) {

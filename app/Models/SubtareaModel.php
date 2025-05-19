@@ -19,9 +19,8 @@ class SubtareaModel extends Model
         'descripcion' => 'max_length[100]',
         'estado' => 'required|in_list[Definida,En proceso,Completada]',
         'prioridad'=> 'required|in_list[Baja,Normal,Alta]',
-        'fecha_vencimiento' => 'required|valid_date[Y-m-d H:i:s]|',
-        'fecha_recordatorio' => 'valid_date[Y-m-d H:i:s]|',
-        'color' => 'required|max_length[7]',
+        'fecha_vencimiento' => 'required|valid_date[Y-m-d]|',
+        'color' => 'required',
     ];
     protected $validationMessages = [
         'asunto' => [
@@ -43,12 +42,9 @@ class SubtareaModel extends Model
             'required' => 'Fecha de vencimiento es obligatoria.',
             'valid_date' => 'Formato inválido para la fecha de vencimiento',
         ],
-        'fecha_recordatorio' => [
-            'valid_date' => 'Formato inválido para la fecha de recordatorio',
-        ],
         'color' => [
-            'regex_match' => 'El color debe ser un código hexadecimal válido',
-        ],
+            'required' => 'El color es obligatorio.',
+        ]
     ];
     protected $skipValidation = false;
     protected $cleanValidationRules = true;
@@ -159,5 +155,22 @@ class SubtareaModel extends Model
                     ->where('estado', 'Completada')
                     ->countAllResults();
         return $total === $completadas;
+    }
+
+    public function nueva_subtarea($data) {
+        $sql = "INSERT INTO subtarea (asunto, descripcion, estado, prioridad, fecha_vencimiento, fecha_recordatorio, id_responsable, color, id_tarea)
+            VALUES (:asunto:, :descripcion:, :estado:, :prioridad:, :fecha_vencimiento:, :fecha_recordatorio:, :id_responsable:, :color:, :id_tarea:)";
+        $this->db->query($sql, [
+            'asunto' => $data['asunto'],
+            'descripcion' => $data['descripcion'] ?? null,
+            'estado' => $data['estado'] ?? 'Definida',
+            'prioridad' => $data['prioridad'],
+            'fecha_vencimiento' => $data['fecha_vencimiento'],
+            'fecha_recordatorio' => $data['fecha_recordatorio'] ?? null,
+            'id_responsable' => $data['id_responsable'] ?? null,
+            'color' => $data['color'],
+            'id_tarea' => $data['id_tarea'],
+        ]);
+        return $this->db->insertID();
     }
 }

@@ -48,7 +48,7 @@
             <div class="bg-gray-900 rounded-md shadow-sm p-4 min-h-[250px]">
                 <div class="flex justify-between items-center mb-2">
                     <h4 class="font-semibold">Definido</h4>
-                    <img src="<?= base_url('icons/add.svg') ?>" alt="crearSubtarea" class="h-4 w-4 mr-4">
+                    <?= view_cell('ModalCell::crearSubtarea', ['id' => esc($tarea['id'])]) ?>
                 </div>
                 <?php foreach (esc($subtareas) as $subtarea):
                     if ($subtarea['estado'] == 'Definida'): ?>
