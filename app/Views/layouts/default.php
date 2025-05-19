@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= $this->renderSection('title') ?></title>
     <link rel="stylesheet" href="<?= base_url('css/output.css') ?>">
+    <link rel="icon" href="<?= base_url('icons/mail.svg') ?>"></link>
     <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
 </head>
 

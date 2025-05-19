@@ -7,6 +7,7 @@
     <title>Iniciar Sesión</title>
     <link rel="stylesheet" href="<?= base_url('css/output.css') ?>">
     <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+    <link rel="icon" href="<?= base_url('icons/mail.svg') ?>"></link>
     <meta charset="UTF-8">
 </head>
 

@@ -44,7 +44,17 @@ class NotificacionModel extends Model {
     }
 
     public function nueva_notificacion($data) {
-        return $this->insert($data);
+        $sql = "INSERT INTO `{$this->table}` (`email_usuario`, `id_tarea`, `id_subtarea`, `tipo`, `email_invitador`, `leido`) VALUES (?, ?, ?, ?, ?, ?)";
+        $this->db->query($sql, [
+            $data['email_usuario'],
+            $data['id_tarea'] ?? null,
+            $data['id_subtarea'] ?? null,
+            $data['tipo'],
+            $data['email_invitador'] ?? null,
+            $data['leido'] ?? 0,
+        ]);
+
+        return $this->db->insertID();
     }
 
     public function get_notificaciones_no_leidas_by_email($emailUsuario) {
