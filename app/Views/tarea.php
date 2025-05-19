@@ -97,7 +97,9 @@
         <div class="flex justify-between items-center mb-2">
             <h4 class="font-semibold">Definido</h4>
             <?php if (esc($tarea['estado']) != 'Archivada'): ?>
-            <?= view_cell('ModalCell::crearSubtarea', ['id' => esc($tarea['id'])]) ?>
+                <?php if (esc($es_dueño)): ?>
+                    <?= view_cell('ModalCell::crearSubtarea', ['id' => esc($tarea['id'])]) ?>
+                <?php endif; ?>
             <?php endif; ?>
         </div>
         <?php foreach (esc($subtareas) as $subtarea):
@@ -147,10 +149,10 @@
     <div class="bg-gray-900 rounded-md shadow-sm p-4">
         <div class="flex justify-between items-center mb-2">
             <h4 class="font-semibold">Completado</h4>
-            <?php if(esc($tarea['estado']) == 'Completada'): ?>
-            <div>
-                <?= view_cell('ModalCell::archivarTarea', ['id_tarea' => esc($tarea['id'])]) ?>
-            </div>
+            <?php if (esc($tarea['estado']) == 'Completada'): ?>
+                <div>
+                    <?= view_cell('ModalCell::archivarTarea', ['id_tarea' => esc($tarea['id'])]) ?>
+                </div>
             <?php endif; ?>
         </div>
         <?php foreach (esc($subtareas) as $subtarea):
