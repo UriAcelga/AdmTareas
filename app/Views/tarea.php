@@ -9,7 +9,7 @@
 <?= $this->section('content') ?>
 <a href="<?= base_url('home') ?>" class="text-white font-bold text-xl hover:underline">
     <<< Volver a Principal</a>
-        <?php if (session()->has('tareaInvalida') && session()->getFlashdata('tareaInvalida')): ?>
+        <?php if (session()->getFlashdata('tareaInvalida')): ?>
             <div class="bg-red-200 px-6 py-4 mx-2 my-4 rounded-md text-lg flex items-center mx-auto max-w-lg">
         <svg viewBox="0 0 24 24" class="text-red-600 w-5 h-5 sm:w-5 sm:h-5 mr-3">
             <path fill="currentColor"
@@ -46,7 +46,10 @@
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div class="bg-gray-900 rounded-md shadow-sm p-4 min-h-[250px]">
-                <h4 class="font-semibold mb-2">Definido</h4>
+                <div class="flex justify-between items-center mb-2">
+                    <h4 class="font-semibold">Definido</h4>
+                    <img src="<?= base_url('icons/add.svg') ?>" alt="crearSubtarea" class="h-4 w-4 mr-4">
+                </div>
                 <?php foreach (esc($subtareas) as $subtarea):
                     if ($subtarea['estado'] == 'Definida'): ?>
                         <div class="space-y-2 mb-2">
@@ -92,9 +95,9 @@
             </div>
 
             <div class="bg-gray-900 rounded-md shadow-sm p-4">
-                <h4 class="font-semibold mb-2">Finalizado</h4>
+                <h4 class="font-semibold mb-2">Completado</h4>
                 <?php foreach (esc($subtareas) as $subtarea):
-                    if ($subtarea['estado'] == 'Finalizada'): ?>
+                    if ($subtarea['estado'] == 'Completada'): ?>
                         <div class="space-y-2 mb-2">
                             <?= view_cell('SubtareaCell::mostrar', [
                                 'id' => $subtarea['id'],

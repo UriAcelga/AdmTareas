@@ -99,14 +99,65 @@ class SubtareaModel extends Model
     }
 
     public function completar_subtarea($id) {
-        if(! $this->update($id, ['estado' => 'Finalizada'])) {
+        if(! $this->update($id, ['estado' => 'Completada'])) {
             $error = $this->db->error();
             return log_message('error', 'Error al completar la tarea: ' . $error['message']);
         }
         return null;
     }
 
+    public function desarrollar_subtarea($id) {
+        if(! $this->update($id, ['estado' => 'En proceso'])) {
+            $error = $this->db->error();
+            return log_message('error', 'Error al desarrollar la tarea: ' . $error['message']);
+        }
+        return null;
+    }
+
+    public function subtarea_al_backlog($id) {
+        if(! $this->update($id, ['estado' => 'Definida'])) {
+            $error = $this->db->error();
+            return log_message('error', 'Error al enviar la tarea al backlog: ' . $error['message']);
+        }
+        return null;
+    }
+
     public function get_estado_por_id($id) {
         return $this->where('id', $id)->select('estado')->first();
+    }
+
+    
+    public function hay_subtareas_en_proceso_para_tarea($idTarea) {
+        return $this->where('estado', 'En proceso')
+        ->where('id_tarea', $idTarea)
+        ->countAllResults() > 0;
+    }
+
+    public function hay_subtareas_completadas_para_tarea($idTarea) {
+        return $this->where('estado', 'Completada')
+        ->where('id_tarea', $idTarea)
+        ->countAllResults() > 0;
+    }
+
+    public function todas_tareas_definidas_para_tarea($idTarea) {
+        $total = $this->where('id_tarea', $idTarea)->countAllResults();
+        if ($total == 0) {
+            return false;
+        }
+        $definidas = $this->where('id_tarea', $idTarea)
+                    ->where('estado', 'Definida')
+                    ->countAllResults();
+        return $total === $definidas;
+    }
+
+    public function todas_tareas_completadas_para_tarea($idTarea) {
+        $total = $this->where('id_tarea', $idTarea)->countAllResults();
+        if ($total == 0) {
+            return false;
+        }
+        $completadas = $this->where('id_tarea', $idTarea)
+                    ->where('estado', 'Completada')
+                    ->countAllResults();
+        return $total === $completadas;
     }
 }

@@ -22,3 +22,7 @@ $routes->post('borrarTarea', 'TareaController::borrar');
 
 $routes->post('crearSubtarea', 'SubtareaController::crear');
 $routes->post('modificarSubtarea', 'SubtareaController::modificar');
+$routes->post('borrarSubtarea', 'SubtareaController::borrar');
+$routes->post('desarrollarSubtarea', 'SubtareaController::desarrollar');
+$routes->post('completarSubtarea', 'SubtareaController::completar');
+$routes->post('subtareaAlBacklog', 'SubtareaController::al_backlog');

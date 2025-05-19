@@ -101,4 +101,17 @@ class TareaModel extends Model
     public function nueva_tarea($data) {
         return $this->insert($data);
     }
+
+    public function set_estado_definida($id) {
+        return $this->update($id, ['estado' => 'Definida']);
+    }
+
+    public function set_estado_en_proceso($id) {
+        return $this->update($id, ['estado' => 'En proceso']);
+    }
+
+    public function set_estado_completada($id) {
+        return $this->update($id, ['estado' => 'Completada']);
+    }
+
 }
