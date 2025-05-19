@@ -64,9 +64,9 @@ class SubtareaController extends BaseController
                 return redirect()->back()->withInput();
             }
         }
-        // $tarea = $modeloTarea->find($data['id_tarea']);
-        // $haytareas = $modeloTarea->where('id', $data['id_tarea'])->countAllResults() > 0;
-        // dd($data['id_tarea'], $haytareas, $tarea, $tarea['id'] === $data['id_tarea']);
+        if($modeloSubtarea->todas_tareas_completadas_para_tarea($idTarea)) {
+            $modeloTarea->set_estado_en_proceso($idTarea);
+        }
         $modeloSubtarea->nueva_subtarea($data);
             return redirect()->to(base_url('tareas/' . $idTarea));
     }
@@ -78,7 +78,17 @@ class SubtareaController extends BaseController
 
     public function borrar()
     {
-        return redirect()->back();
+        $id = $this->request->getPost('id');
+        $idTarea = $this->request->getPost('id_tarea');
+        $modeloSubtarea = new SubtareaModel();
+        if(!$modeloSubtarea->find($id)) {
+            session()->setFlashdata('subtareaInvalida', 'Subtarea no encontrada');
+            return redirect()->back();
+        }
+
+        $modeloSubtarea->delete($id);
+        session()->setFlashdata('subtareaBorrada', true);
+        return redirect()->to(base_url('tareas/' . $idTarea));
     }
 
     public function desarrollar()

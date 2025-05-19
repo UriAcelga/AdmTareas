@@ -6,7 +6,7 @@
             <?php if (esc($es_dueño)):   ?>
                 <div class="flex space-x-2 ml-auto">
                     <img src="<?= base_url('icons/edit.svg') ?>" alt="modificarSubtarea" class="w-4 h-4">
-                    <img src="<?= base_url('icons/delete.svg') ?>" alt="eliminarSubtarea" class="w-4 h-4">
+                    <?= view_cell('ModalCell::borrarSubtarea', ['id' => esc($id), 'id_tarea' => esc($id_tarea)]) ?>
                 </div>
             <?php endif; ?>
         </div>

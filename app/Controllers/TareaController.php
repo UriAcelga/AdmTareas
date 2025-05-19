@@ -147,7 +147,7 @@ class TareaController extends BaseController
         }
 
         $modeloTareas->delete($idTarea);
-        session()->setFlashdata('tarreaBorrada', true);
+        session()->setFlashdata('tareaBorrada', true);
         return redirect()->to(base_url('home'));
     }
 }

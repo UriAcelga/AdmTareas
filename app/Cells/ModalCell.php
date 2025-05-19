@@ -46,4 +46,13 @@ class ModalCell
         die;
         return view('componentes/modalSubtareaModificar', $data);
     }
+
+    public function borrarSubtarea(array $params = [])
+    {
+        $data = [
+            'id' => $params['id']
+        ];
+
+        return view('componentes/confirmarBorrarSubtarea', $data);
+    }
 }
