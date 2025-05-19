@@ -90,6 +90,7 @@
     <?php endif; ?>
     <div class="flex justify-center mb-4">
         <h2 class="text-white font-bold text-lg"><?= esc($tarea['asunto']) ?></h2>
+        <h2 class="text-white text-md"><?= esc($tarea['descripcion']) ?></h2>
     </div>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
