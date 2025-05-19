@@ -55,8 +55,8 @@
                 <div class="bg-gray-900 rounded-md shadow-sm p-4">
                     <div class="space-y-2 mb-2">
                         <?= view_cell('SubtareaCell::mostrar', [
-                            'asunto' => 'Crear componentes',
-                            'descripcion' => 'Se requieren modales, botones y listas editables',
+                            'asunto' => 'Interfaz simple',
+                            'descripcion' => 'Para organizar tu trabajo como gustes',
                             'fecha_vencimiento' => '2025/30/6',
                             'color' => 'green-500'
                         ]) ?>

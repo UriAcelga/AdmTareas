@@ -37,6 +37,11 @@
             </span>
         </div>
     </div>
+    <footer>
+        <p class="text-center">
+            <span class="text-sm pb-4">&copy;2025 Uriel Gomez - Todos los derechos reservados</span>
+        </p>
+    </footer>
 </body>
 
 </html>

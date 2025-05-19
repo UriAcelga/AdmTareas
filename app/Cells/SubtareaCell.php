@@ -18,7 +18,7 @@ class SubtareaCell
             'fecha_recordatorio' => $params['fecha_recordatorio'] ?? '2030/01/01',
             'usuario' => $params['usuario'] ?? '-',
             'color' => $params['color'] ?? 'red-500',
-            'id_tarea' => $params['id_tarea']
+            'id_tarea' => $params['id_tarea'] ?? 0
         ];
 
         return view('componentes/subtarea', $params);

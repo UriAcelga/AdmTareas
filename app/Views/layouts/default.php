@@ -14,12 +14,14 @@
         <?= $this->renderSection('nav') ?>
 
         <?= $this->renderSection('content') ?>
-
-
-        
     </div>
+    <footer>
+        <p class="text-center">
+            <span class="text-sm pb-4">&copy;2025 Uriel Gomez - Todos los derechos reservados</span>
+        </p>
+    </footer>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
-    
+
     <script>
         // Simple toggle logic (optional, for UI feedback)
         document.getElementById('toggle-active').addEventListener('click', function() {
