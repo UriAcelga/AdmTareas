@@ -120,7 +120,7 @@ class SubtareaModel extends Model
     }
 
     public function get_estado_por_id($id) {
-        return $this->where('id', $id)->select('estado')->first();
+        return $this->select('estado')->find($id)['estado'];
     }
 
     

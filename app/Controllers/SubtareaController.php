@@ -39,6 +39,8 @@ class SubtareaController extends BaseController
             'id_tarea' => $idTarea,
             'color' => $color,
         ];
+        dd($data['fecha_recordatorio'], $data['fecha_vencimiento'], $data['fecha_recordatorio'] > $data['fecha_vencimiento']);
+
         if (!$modeloSubtarea->validate($data)) {
             session()->setFlashdata('errors', $modeloSubtarea->errors());
             return redirect()->back()->withInput();
@@ -48,22 +50,32 @@ class SubtareaController extends BaseController
         
         if ($data['fecha_vencimiento'] <= $hoy) {
             session()->setFlashdata('errors', ['fecha_vencimiento' => 'La fecha de vencimiento debe ser posterior a hoy.']);
+        dd($data['fecha_recordatorio'], $data['fecha_vencimiento'], $venc_tarea, $data['fecha_recordatorio'] > $data['fecha_vencimiento']);
+
             return redirect()->back()->withInput();
         } 
         if ($data['fecha_vencimiento'] > $venc_tarea) {
             session()->setFlashdata('errors', ['fecha_vencimiento' => 'La fecha de vencimiento no debe superar la fecha de vencimiento de la tarea: ' . $venc_tarea]);
+        dd($data['fecha_recordatorio'], $data['fecha_vencimiento'], $venc_tarea, $data['fecha_recordatorio'] > $data['fecha_vencimiento']);
+
             return redirect()->back()->withInput();
         }
         if($data['fecha_recordatorio']) {
             if ( $data['fecha_recordatorio'] <= $hoy) {
                 session()->setFlashdata('errors', ['fecha_recordatorio' => 'La fecha de recordatorio debe ser posterior a hoy.']);
+        dd($data['fecha_recordatorio'], $data['fecha_vencimiento'], $venc_tarea, $data['fecha_recordatorio'] > $data['fecha_vencimiento']);
+
                 return redirect()->back()->withInput();
             }
             if ($data['fecha_recordatorio'] > $data['fecha_vencimiento']) {
                 session()->setFlashdata('errors', ['fecha_recordatorio' => 'La fecha de recordatorio debe ser anterior al vencimiento.']);
+        dd($data['fecha_recordatorio'], $data['fecha_vencimiento'], $venc_tarea, $data['fecha_recordatorio'] > $data['fecha_vencimiento']);
+
                 return redirect()->back()->withInput();
             }
         }
+
+        dd($data['fecha_recordatorio'], $data['fecha_vencimiento'], $venc_tarea, $data['fecha_recordatorio'] > $data['fecha_vencimiento']);
         if($modeloSubtarea->todas_tareas_completadas_para_tarea($idTarea)) {
             $modeloTarea->set_estado_en_proceso($idTarea);
         }
@@ -89,13 +101,13 @@ class SubtareaController extends BaseController
             'color' => $subtarea['color'],
         ];
 
-
         if(!$modeloSubtarea->validate($data)) {
             session()->setFlashdata(('subtareaInvalida'), $modeloSubtarea->errors());
             return redirect()->back()->withInput();
         }
         $venc_tarea = $modeloTarea->get_fecha_vencimiento($id_tarea);
         $hoy = date('Y-m-d');
+        dd($data['fecha_recordatorio'], $data['fecha_vencimiento'], $venc_tarea, $data['fecha_recordatorio'] > $data['fecha_vencimiento']);
         
         if ($data['fecha_vencimiento'] <= $hoy) {
             session()->setFlashdata(('subtareaInvalida'), ['fecha_vencimiento' => 'La fecha de vencimiento debe ser posterior a hoy.']);

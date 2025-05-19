@@ -68,11 +68,11 @@ class TareaModel extends Model
     }
 
     public function get_dueño($id) {
-        return $this->where('id', $id)->select('idDueño')->first();
+        return $this->select('idDueño')->find($id)['idDueño'];
     }
 
     public function get_fecha_vencimiento($id) {
-        return $this->where('id', $id)->select('fecha_vencimiento')->first();
+        return $this->select('fecha_vencimiento')->find($id)['fecha_vencimiento'];
     }
 
     public function get_fecha_recordatorio($id) {
