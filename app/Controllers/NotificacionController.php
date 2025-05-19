@@ -31,10 +31,16 @@ class NotificacionController extends BaseController
             return redirect()->back();
         }
 
+        if($modeloNotif->usuario_ya_invitado($id_tarea, $email_colaborador)) {
+            session()->setFlashdata('invitacionSuccess', 'Invitación enviada con éxito');
+            return redirect()->back();
+        }
+
         if(!$modeloNotif->nueva_notificacion($data)) {
             session()->setFlashdata('errorInvitacion', 'Error al crear la invitacion: ' . $modeloNotif->errors());
             return redirect()->back();
         }
+
         session()->setFlashdata('invitacionSuccess', 'Invitación enviada con éxito');
         return redirect()->back();
     }

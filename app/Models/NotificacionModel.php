@@ -46,4 +46,12 @@ class NotificacionModel extends Model {
         return $this->insert($data);
     }
 
+    public function get_notificaciones_no_leidas_by_email($emailUsuario) {
+        return $this->where('email_usuario', $emailUsuario)->where('leido', 0)->orderBy('created_at', 'DESC')->findAll();
+    }
+
+    public function usuario_ya_invitado($idTarea, $email_usuario) {
+        return $this->where('id_tarea', $idTarea)->where('email_usuario', $email_usuario)->countAllResults() > 0;
+    }
+
 }

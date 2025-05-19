@@ -28,22 +28,22 @@
     <div class="py-4 overflow-y-auto">
         <ul class="space-y-2 font-medium">
             <!-- ... menu items ... -->
-            <?php /* if (!empty($notifs)):
+            <?php if (!empty($notifs)):
                 foreach (esc($notifs) as $notif):
-                    if ($notif['leido'] == 0):*/ ?>
+                if($notif['tipo'] == 'invitacion'): ?>
                         <li class="bg-gray-700 rounded-lg shadow p-2 flex flex-col space-y-2">
                             <div>
-                                <p class="text-sm font-medium text-white">Notificación dinámica</p>
-                                <p class="text-xs text-gray-400">Aquí va la descripción o el dato dinámico.</p>
+                                <p class="text-sm font-medium text-white">Invitación a tarea</p>
+                                <p class="text-xs text-gray-400"><span class="text-bold"> <?= $notif['email_invitador'] ?></span> te ha invitado a colaborar en una tarea.</p>
                             </div>
                             <div class="flex flex-col space-y-2 mt-2">
                                 <button onclick="window.location.href='<?= base_url('aceptarNotif') ?>'" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-xs">Aceptar</button>
                                 <button onclick="window.location.href='<?= base_url('rechazarNotif') ?>'" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs">Rechazar</button>
                             </div>
                         </li>
-            <?php /* endif;
+            <?php endif;
                 endforeach;
-            endif;*/ ?>
+            endif; ?>
         </ul>
 
     </div>
