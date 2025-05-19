@@ -37,8 +37,16 @@
                                 <p class="text-xs text-gray-400"><span class="text-bold"> <?= $notif['email_invitador'] ?></span> te ha invitado a colaborar en una tarea.</p>
                             </div>
                             <div class="flex flex-col space-y-2 mt-2">
-                                <button onclick="window.location.href='<?= base_url('aceptarNotif') ?>'" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-xs">Aceptar</button>
-                                <button onclick="window.location.href='<?= base_url('rechazarNotif') ?>'" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs">Rechazar</button>
+                                <?= form_open('aceptarInvitacion', ['id' => 'formAceptarInv-' . $notif['id'], 'method' => 'post']) ?>
+                                <input type="hidden" name="id_notif" value="<?= $notif['id'] ?>">
+                                <input type="hidden" name="id_tarea" value="<?= $notif['id_tarea'] ?>">
+                                <input type="hidden" name="email_usuario" value="<?= $notif['email_usuario'] ?>">
+                                <button type="submit" class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-xs w-full">Aceptar</button>
+                                <?= form_close() ?>
+                                <?= form_open('rechazarInvitacion', ['id' => 'formRechazarInv-'. $notif['id'], 'method' => 'post']) ?>
+                                <input type="hidden" name="id_notif" value="<?= $notif['id'] ?>">
+                                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-xs w-full">Rechazar</button>
+                                <?= form_close() ?>
                             </div>
                         </li>
             <?php endif;

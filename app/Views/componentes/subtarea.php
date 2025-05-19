@@ -41,7 +41,7 @@
                     <span class="font-semibold">Completar</span>
                 </button>
                 <?= form_close() ?>
-            <?php else: ?>
+            <?php elseif (esc($estado) == 'Completada' && esc($es_dueño)): ?>
                 <?= form_open('subtareaAlBacklog', ['id' => 'alBacklogForm', 'method' => 'post']) ?>
                 <input type="hidden" name="id" value="<?= esc($id) ?>">
                 <input type="hidden" name="id_tarea" value="<?= esc($id_tarea) ?>">

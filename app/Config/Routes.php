@@ -28,3 +28,5 @@ $routes->post('completarSubtarea', 'SubtareaController::completar');
 $routes->post('subtareaAlBacklog', 'SubtareaController::al_backlog');
 
 $routes->post('invitarColaborador', 'NotificacionController::invitar');
+$routes->post('aceptarInvitacion', 'NotificacionController::aceptarInvitacion');
+$routes->post('rechazarInvitacion', 'NotificacionController::rechazarInvitacion');

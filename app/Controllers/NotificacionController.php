@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\ColaboracionModel;
 use App\Models\NotificacionModel;
 
 class NotificacionController extends BaseController
@@ -31,11 +32,6 @@ class NotificacionController extends BaseController
             return redirect()->back();
         }
 
-        if($modeloNotif->usuario_ya_invitado($id_tarea, $email_colaborador)) {
-            session()->setFlashdata('invitacionSuccess', 'Invitación enviada con éxito');
-            return redirect()->back();
-        }
-
         if(!$modeloNotif->nueva_notificacion($data)) {
             session()->setFlashdata('errorInvitacion', 'Error al crear la invitacion: ' . $modeloNotif->errors());
             return redirect()->back();
@@ -47,12 +43,33 @@ class NotificacionController extends BaseController
 
     public function aceptarInvitacion()
     {
+        $id = $this->request->getPost('id_notif');
+        $id_tarea = $this->request->getPost('id_tarea');
+        $email_usuario = $this->request->getPost('email_usuario');
+        $modeloColab = new ColaboracionModel();
+        $modeloNotif = new NotificacionModel();
+
+        $data = [
+            'idTarea' => $id_tarea,
+            'emailColaborador' => $email_usuario
+        ];
+
+        if(! $modeloColab->nueva_colaboracion($data)) {
+            session()->setFlashdata('errorAceptarInvitacion', 'Error inesperado al aceptar la invitacion');
+        }
+
+        $modeloNotif->marcar_como_leida($id);
+        return redirect()->to('tareas/' . $id_tarea);
 
     }
 
     public function rechazarInvitacion()
     {
+        $id = $this->request->getPost('id_notif');
+        $modeloNotif = new NotificacionModel();
 
+        $modeloNotif->marcar_como_leida($id);
+        return redirect()->back();
     }
 
     public function marcar_como_leidas() 

@@ -9,7 +9,7 @@ class ColaboracionModel extends Model
     protected $useAutoIncrement = true;
     protected $returnType = 'array';
     protected $useSoftDeletes = false;
-    protected $allowedFields = ['id', 'emailColaborador', 'idTarea', 'aceptado'];
+    protected $allowedFields = ['id', 'emailColaborador', 'idTarea'];
     protected $useTimestamps = false;
     protected $createdField = 'created_at';
     protected $updatedField = 'updated_at';
@@ -18,4 +18,8 @@ class ColaboracionModel extends Model
     protected $validationMessages = [];
     protected $skipValidation = false;
     protected $cleanValidationRules = true;
+
+    public function nueva_colaboracion($data) {
+        return $this->insert($data);
+    }
 }
